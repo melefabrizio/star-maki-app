@@ -1,0 +1,110 @@
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/dm-sans";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+
+  /* brand */
+  --color-salmon: #F07868;
+  --color-salmon-light: #FEF0EE;
+  --color-nori: #2C372D;
+  --color-rice: #F4F0E2;
+
+  /* semantic tokens */
+  --color-background: #F4F0E2;
+  --color-foreground: #2C372D;
+
+  --color-card: #FDFAF0;
+  --color-card-foreground: #2C372D;
+
+  --color-popover: #FDFAF0;
+  --color-popover-foreground: #2C372D;
+
+  --color-primary: #F07868;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: #E6E2D3;
+  --color-secondary-foreground: #2C372D;
+
+  --color-muted: #E6E2D3;
+  --color-muted-foreground: #7A8878;
+
+  --color-accent: #E6E2D3;
+  --color-accent-foreground: #2C372D;
+
+  --color-destructive: #D94F3D;
+  --color-destructive-foreground: #FFFFFF;
+
+  --color-border: #D8D4C4;
+  --color-input: #D8D4C4;
+  --color-ring: #F07868;
+
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Dark mode ── */
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-salmon: #F07868;
+    --color-salmon-light: #3A1E1A;
+    --color-nori: #A0BEA2;
+    --color-rice: #EDE9D8;
+    --color-background: #141714;
+    --color-foreground: #EDE9D8;
+    --color-card: #1C221C;
+    --color-card-foreground: #EDE9D8;
+    --color-popover: #1C221C;
+    --color-popover-foreground: #EDE9D8;
+    --color-primary: #F07868;
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: #252C25;
+    --color-secondary-foreground: #D4D0BC;
+    --color-muted: #252C25;
+    --color-muted-foreground: #8A9688;
+    --color-accent: #252C25;
+    --color-accent-foreground: #EDE9D8;
+    --color-destructive: #E05C4A;
+    --color-destructive-foreground: #FFFFFF;
+    --color-border: #2C342C;
+    --color-input: #2C342C;
+    --color-ring: #F07868;
+  }
+}
+
+:root.dark {
+  --color-salmon: #F07868;
+  --color-salmon-light: #3A1E1A;
+  --color-nori: #A0BEA2;
+  --color-rice: #EDE9D8;
+  --color-background: #141714;
+  --color-foreground: #EDE9D8;
+  --color-card: #1C221C;
+  --color-card-foreground: #EDE9D8;
+  --color-popover: #1C221C;
+  --color-popover-foreground: #EDE9D8;
+  --color-primary: #F07868;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #252C25;
+  --color-secondary-foreground: #D4D0BC;
+  --color-muted: #252C25;
+  --color-muted-foreground: #8A9688;
+  --color-accent: #252C25;
+  --color-accent-foreground: #EDE9D8;
+  --color-destructive: #E05C4A;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #2C342C;
+  --color-input: #2C342C;
+  --color-ring: #F07868;
+}
