@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { motion, useAnimationControls } from "motion/react";
 import { ArrowLeft, Plus, Check, Clock, ThumbsUp, ThumbsDown, CircleDashed, Trash2, Search, Pencil } from "lucide-react";
 import { useAppStore, Dish } from "../lib/store";
@@ -17,6 +17,9 @@ import {
   DialogFooter,
   DialogClose,
 } from "./ui/dialog";
+import { DishPhoto, type DishPhotoHandle } from "./DishPhoto";
+import { PhotoLightbox } from "./PhotoLightbox";
+import { deletePhoto, deletePhotos } from "../lib/imageStore";
 
 interface RestaurantViewProps {
   restaurantId: string;
@@ -45,6 +48,11 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("active");
 
+  const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
+  const [lightboxEditable, setLightboxEditable] = useState(false);
+  const [lightboxDishId, setLightboxDishId] = useState("");
+  const dishPhotoRefs = useRef<Map<string, DishPhotoHandle>>(new Map());
+
   if (!restaurant) return null;
 
   const handleCreateAndAddDish = (e: React.FormEvent) => {
@@ -66,6 +74,22 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
       setEditingDish(null);
     }
   };
+
+  const openLightbox = useCallback((url: string, dishId: string, editable: boolean) => {
+    setLightboxUrl(url);
+    setLightboxDishId(dishId);
+    setLightboxEditable(editable);
+  }, []);
+
+  const handleLightboxReplace = useCallback(() => {
+    dishPhotoRefs.current.get(lightboxDishId)?.triggerReplace();
+  }, [lightboxDishId]);
+
+  const handleLightboxDelete = useCallback(async () => {
+    await deletePhoto(lightboxDishId);
+    dishPhotoRefs.current.get(lightboxDishId)?.clearPhoto();
+    setLightboxUrl(null);
+  }, [lightboxDishId]);
 
   const pendingItems = activeOrder.filter(item => !item.arrived);
   const arrivedItems = activeOrder.filter(item => item.arrived);
@@ -257,15 +281,21 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                               </div>
 
                               <div className="flex items-center shrink-0">
-                                <Button 
-                                  variant="ghost" 
-                                  size="icon" 
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
                                   className="h-8 w-8 rounded-full text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10 transition-colors"
                                   onClick={() => removeOrderItem(restaurantId, item.id)}
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </Button>
                               </div>
+
+                              <DishPhoto
+                                dishId={dish.id}
+                                editable={false}
+                                onPhotoReady={(url) => openLightbox(url, dish.id, false)}
+                              />
                             </CardContent>
                           </Card>
                         )
@@ -320,6 +350,12 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                               <div className="shrink-0 scale-90 sm:scale-100 origin-right">
                                 {renderRatingButtons(dish)}
                               </div>
+
+                              <DishPhoto
+                                dishId={dish.id}
+                                editable={false}
+                                onPhotoReady={(url) => openLightbox(url, dish.id, false)}
+                              />
                             </CardContent>
                           </Card>
                         )
@@ -372,9 +408,8 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                         <div className="grid gap-2">
                           {groupDishes.map((dish) => (
                             <Card key={dish.id} className={`py-2! bg-card shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.05)] transition-all border-transparent rounded-[1rem] overflow-hidden group ${dish.rating === 'disliked' ? 'opacity-70 hover:opacity-100' : ''}`}>
-                              <CardContent className="p-2 sm:p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                                
-                                <div className="flex-1 min-w-0">
+                              <CardContent className="p-2 sm:p-2 flex items-stretch gap-3">
+                                <div className="flex-1 min-w-0 flex flex-col gap-1">
                                   <div className="flex items-center gap-2">
                                     {dish.number && (
                                       <div className="font-mono text-xs font-semibold text-muted-foreground bg-muted w-8 h-8 rounded-full flex items-center justify-center shrink-0">
@@ -395,23 +430,30 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                                       <Trash2 className="w-3.5 h-3.5" />
                                     </button>
                                   </div>
-                                </div>
-                                
-                                <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto shrink-0 border-t border-border/40 sm:border-t-0 pt-1.5 sm:pt-0">
-                                  <div className="scale-90 origin-left sm:scale-95 sm:origin-right">
-                                    {renderRatingButtons(dish)}
+
+                                  <div className="flex items-center justify-between gap-2 shrink-0 border-t border-border/40 pt-1.5">
+                                    <div className="scale-90 origin-left">
+                                      {renderRatingButtons(dish)}
+                                    </div>
+
+                                    <Button
+                                      variant="secondary"
+                                      size="sm"
+                                      className="h-9 px-4 sm:px-5 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.03)] font-medium text-[13px] sm:text-sm gap-1 text-nori bg-muted/60 hover:bg-nori hover:text-white transition-all"
+                                      onClick={() => { addOrderItem(restaurantId, dish.id); haptic(); }}
+                                    >
+                                      Ordina
+                                      <span className="opacity-60 text-xs ml-0.5 font-mono font-semibold">+1</span>
+                                    </Button>
                                   </div>
-                                  
-                                  <Button 
-                                    variant="secondary" 
-                                    size="sm" 
-                                    className="h-9 px-4 sm:px-5 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.03)] font-medium text-[13px] sm:text-sm gap-1 text-nori bg-muted/60 hover:bg-nori hover:text-white transition-all"
-                                    onClick={() => { addOrderItem(restaurantId, dish.id); haptic(); }}
-                                  >
-                                    Ordina
-                                    <span className="opacity-60 text-xs ml-0.5 font-mono font-semibold">+1</span>
-                                  </Button>
                                 </div>
+
+                                <DishPhoto
+                                  ref={(h) => { if (h) dishPhotoRefs.current.set(dish.id, h); else dishPhotoRefs.current.delete(dish.id); }}
+                                  dishId={dish.id}
+                                  editable={true}
+                                  onPhotoReady={(url) => openLightbox(url, dish.id, true)}
+                                />
                               </CardContent>
                             </Card>
                           ))}
@@ -440,7 +482,7 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
             </DialogClose>
             <Button
               className="rounded-full h-10 px-6 bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              onClick={() => { deleteRestaurant(restaurantId); onBack(); }}
+              onClick={() => { deletePhotos(dishes.map(d => d.id)); deleteRestaurant(restaurantId); onBack(); }}
             >
               Elimina
             </Button>
@@ -504,7 +546,7 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
             </DialogClose>
             <Button
               className="rounded-full h-10 px-6 bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              onClick={() => { deleteDish(deletingDish!.id); setDeletingDish(null); }}
+              onClick={() => { deletePhoto(deletingDish!.id); deleteDish(deletingDish!.id); setDeletingDish(null); }}
             >
               Elimina
             </Button>
@@ -512,6 +554,13 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
         </DialogContent>
       </Dialog>
 
+      <PhotoLightbox
+        url={lightboxUrl}
+        editable={lightboxEditable}
+        onClose={() => setLightboxUrl(null)}
+        onReplace={handleLightboxReplace}
+        onDelete={handleLightboxDelete}
+      />
     </div>
   );
 }
