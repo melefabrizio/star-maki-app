@@ -3,12 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Plus } from "lucide-react";
 import { useAppStore } from "./lib/store";
 import { Home } from "./components/Home";
-import { RestaurantView } from "./components/RestaurantView";
 import { Button } from "./components/ui/button";
+
+const RestaurantView = lazy(() =>
+  import("./components/RestaurantView").then((m) => ({ default: m.RestaurantView }))
+);
 
 const colophon = (
   <>
@@ -37,13 +40,15 @@ export default function App() {
     <div className="min-h-[100dvh] bg-background font-sans text-foreground selection:bg-salmon-light selection:text-salmon flex flex-col">
       <div className="flex-1">
         {selectedRestaurantId ? (
-          <RestaurantView
-            restaurantId={selectedRestaurantId}
-            onBack={() => setSelectedRestaurantId(null)}
-            store={store}
-            isAddDishOpen={isAddDishOpen}
-            setIsAddDishOpen={setIsAddDishOpen}
-          />
+          <Suspense fallback={<div className="min-h-[100dvh] bg-background" />}>
+            <RestaurantView
+              restaurantId={selectedRestaurantId}
+              onBack={() => setSelectedRestaurantId(null)}
+              store={store}
+              isAddDishOpen={isAddDishOpen}
+              setIsAddDishOpen={setIsAddDishOpen}
+            />
+          </Suspense>
         ) : (
           <Home
             onSelectRestaurant={setSelectedRestaurantId}
