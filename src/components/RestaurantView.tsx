@@ -297,7 +297,7 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                                 <DishPhoto
                                   dishId={dish.id}
                                   editable={false}
-                                  className="w-14 max-h-14"
+                                  className="w-14 min-h-14 max-h-14"
                                   onPhotoReady={(url) => openLightbox(url, dish.id, false)}
                                 />
                               </div>
@@ -362,7 +362,7 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                                 <DishPhoto
                                   dishId={dish.id}
                                   editable={false}
-                                  className="w-14 max-h-14"
+                                  className="w-14 min-h-14 max-h-14"
                                   onPhotoReady={(url) => openLightbox(url, dish.id, false)}
                                 />
                               </div>
