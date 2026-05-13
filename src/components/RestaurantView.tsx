@@ -293,11 +293,11 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                                 </div>
                               </div>
 
-                              <div className="pr-2 py-1.5 flex items-stretch">
+                              <div className="px-2 py-1.5 flex items-stretch">
                                 <DishPhoto
                                   dishId={dish.id}
                                   editable={false}
-                                  className="w-14"
+                                  className="w-14 max-h-14"
                                   onPhotoReady={(url) => openLightbox(url, dish.id, false)}
                                 />
                               </div>
@@ -358,11 +358,11 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                                 </div>
                               </div>
 
-                              <div className="pr-2 py-1.5 flex items-stretch">
+                              <div className="px-2 py-1.5 flex items-stretch">
                                 <DishPhoto
                                   dishId={dish.id}
                                   editable={false}
-                                  className="w-14"
+                                  className="w-14 max-h-14"
                                   onPhotoReady={(url) => openLightbox(url, dish.id, false)}
                                 />
                               </div>

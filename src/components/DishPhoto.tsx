@@ -71,7 +71,7 @@ export const DishPhoto = forwardRef<DishPhotoHandle, DishPhotoProps>(
     const photoClasses = cn(baseClasses, className);
 
     if (!objectUrl) {
-      if (!editable) return null;
+      if (!editable) return <div className={cn(photoClasses, "min-h-14")} aria-hidden="true" />;
       return (
         <>
           <button
