@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useImperativeHandle, useRef, useState, f
 import { Camera } from "lucide-react";
 import { getPhoto, savePhoto } from "../lib/imageStore";
 import { processPhoto } from "../lib/imageUtils";
+import { cn } from "../lib/utils";
 
 interface DishPhotoProps {
   dishId: string;
   editable: boolean;
   onPhotoReady: (url: string) => void;
+  className?: string;
 }
 
 export interface DishPhotoHandle {
@@ -15,7 +17,7 @@ export interface DishPhotoHandle {
 }
 
 export const DishPhoto = forwardRef<DishPhotoHandle, DishPhotoProps>(
-  ({ dishId, editable, onPhotoReady }, ref) => {
+  ({ dishId, editable, onPhotoReady, className }, ref) => {
     const [objectUrl, setObjectUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const prevUrlRef = useRef<string | null>(null);
@@ -65,7 +67,8 @@ export const DishPhoto = forwardRef<DishPhotoHandle, DishPhotoProps>(
       }
     };
 
-    const squareClasses = "w-16 sm:w-22 self-stretch rounded-xl shrink-0 overflow-hidden";
+    const baseClasses = "w-16 sm:w-22 self-stretch rounded-xl shrink-0 overflow-hidden";
+    const photoClasses = cn(baseClasses, className);
 
     if (!objectUrl) {
       if (!editable) return null;
@@ -74,7 +77,7 @@ export const DishPhoto = forwardRef<DishPhotoHandle, DishPhotoProps>(
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className={`${squareClasses} border-2 border-dashed border-border/50 flex items-center justify-center bg-muted/20 hover:bg-muted/50 hover:border-border/80 transition-all`}
+            className={cn(photoClasses, "border-2 border-dashed border-border/50 flex items-center justify-center bg-muted/20 hover:bg-muted/50 hover:border-border/80 transition-all")}
             aria-label="Aggiungi foto"
           >
             <Camera className="w-5 h-5 text-muted-foreground/40" />
@@ -95,7 +98,7 @@ export const DishPhoto = forwardRef<DishPhotoHandle, DishPhotoProps>(
         <button
           type="button"
           onClick={() => onPhotoReady(objectUrl)}
-          className={`${squareClasses} bg-muted`}
+          className={cn(photoClasses, "bg-muted")}
           aria-label="Visualizza foto"
         >
           <img

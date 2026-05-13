@@ -260,42 +260,47 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                         if (!dish) return null;
                         
                         return (
-                          <Card key={item.id} className="border-transparent bg-card shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all rounded-[1rem] overflow-hidden">
-                            <CardContent className="p-1 sm:p-1.5 pl-2 flex items-center gap-3">
-                              <button
-                                onClick={() => { toggleOrderItemArrived(restaurantId, item.id); haptic(); }}
-                                className="flex-shrink-0 w-9 h-9 rounded-full border-2 border-border hover:border-salmon hover:bg-salmon-light flex items-center justify-center transition-all bg-card shadow-sm"
-                              >
-                                <span className="sr-only">Segna come arrivato</span>
-                              </button>
-                              
-                              <div className="flex-1 min-w-0 flex items-center gap-2">
-                                {dish.number && (
-                                  <div className="font-mono text-xs font-semibold text-muted-foreground bg-muted w-8 h-8 rounded-full flex items-center justify-center shrink-0">
-                                    {dish.number}
-                                  </div>
-                                )}
-                                <span className="font-medium text-[15px] sm:text-base text-nori truncate">
-                                  {dish.name}
-                                </span>
-                              </div>
-
-                              <div className="flex items-center shrink-0">
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 rounded-full text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10 transition-colors"
-                                  onClick={() => removeOrderItem(restaurantId, item.id)}
+                          <Card key={item.id} className="py-0 border-transparent bg-card shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all rounded-[1rem] overflow-hidden">
+                            <CardContent className="p-0 flex items-stretch">
+                              <div className="flex-1 min-w-0 flex items-center gap-3 p-1 sm:p-1.5 pl-2">
+                                <button
+                                  onClick={() => { toggleOrderItemArrived(restaurantId, item.id); haptic(); }}
+                                  className="flex-shrink-0 w-9 h-9 rounded-full border-2 border-border hover:border-salmon hover:bg-salmon-light flex items-center justify-center transition-all bg-card shadow-sm"
                                 >
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
+                                  <span className="sr-only">Segna come arrivato</span>
+                                </button>
+
+                                <div className="flex-1 min-w-0 flex items-center gap-2">
+                                  {dish.number && (
+                                    <div className="font-mono text-xs font-semibold text-muted-foreground bg-muted w-8 h-8 rounded-full flex items-center justify-center shrink-0">
+                                      {dish.number}
+                                    </div>
+                                  )}
+                                  <span className="font-medium text-[15px] sm:text-base text-nori truncate">
+                                    {dish.name}
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center shrink-0">
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 rounded-full text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10 transition-colors"
+                                    onClick={() => removeOrderItem(restaurantId, item.id)}
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </Button>
+                                </div>
                               </div>
 
-                              <DishPhoto
-                                dishId={dish.id}
-                                editable={false}
-                                onPhotoReady={(url) => openLightbox(url, dish.id, false)}
-                              />
+                              <div className="pr-2 py-1.5 flex items-stretch">
+                                <DishPhoto
+                                  dishId={dish.id}
+                                  editable={false}
+                                  className="w-14"
+                                  onPhotoReady={(url) => openLightbox(url, dish.id, false)}
+                                />
+                              </div>
                             </CardContent>
                           </Card>
                         )
@@ -327,35 +332,40 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                         if (!dish) return null;
                         
                         return (
-                          <Card key={item.id} className="border-transparent bg-card shadow-sm rounded-[1rem] overflow-hidden opacity-75 hover:opacity-100 transition-opacity">
-                            <CardContent className="p-1 sm:p-1.5 pl-2 flex items-center gap-3">
-                              <button
-                                onClick={() => { toggleOrderItemArrived(restaurantId, item.id); haptic(); }}
-                                className="flex-shrink-0 w-9 h-9 rounded-full border border-nori/20 bg-nori/5 text-nori flex items-center justify-center transition-all hover:bg-nori/10 hover:scale-105"
-                              >
-                                <Check className="w-4 h-4 stroke-[2.5]" />
-                              </button>
-                              
-                              <div className="flex-1 min-w-0 flex items-center gap-2">
-                                {dish.number && (
-                                  <div className="font-mono text-xs font-medium text-muted-foreground/70 shrink-0 bg-muted/50 w-8 h-8 rounded-full flex items-center justify-center">
-                                    {dish.number}
-                                  </div>
-                                )}
-                                <span className="text-muted-foreground font-medium line-through decoration-muted-foreground/30 truncate text-[15px] sm:text-base">
-                                  {dish.name}
-                                </span>
+                          <Card key={item.id} className="py-0 border-transparent bg-card shadow-sm rounded-[1rem] overflow-hidden opacity-75 hover:opacity-100 transition-opacity">
+                            <CardContent className="p-0 flex items-stretch">
+                              <div className="flex-1 min-w-0 flex items-center gap-3 p-1 sm:p-1.5 pl-2">
+                                <button
+                                  onClick={() => { toggleOrderItemArrived(restaurantId, item.id); haptic(); }}
+                                  className="flex-shrink-0 w-9 h-9 rounded-full border border-nori/20 bg-nori/5 text-nori flex items-center justify-center transition-all hover:bg-nori/10 hover:scale-105"
+                                >
+                                  <Check className="w-4 h-4 stroke-[2.5]" />
+                                </button>
+
+                                <div className="flex-1 min-w-0 flex items-center gap-2">
+                                  {dish.number && (
+                                    <div className="font-mono text-xs font-medium text-muted-foreground/70 shrink-0 bg-muted/50 w-8 h-8 rounded-full flex items-center justify-center">
+                                      {dish.number}
+                                    </div>
+                                  )}
+                                  <span className="text-muted-foreground font-medium line-through decoration-muted-foreground/30 truncate text-[15px] sm:text-base">
+                                    {dish.name}
+                                  </span>
+                                </div>
+
+                                <div className="shrink-0 scale-90 sm:scale-100 origin-right">
+                                  {renderRatingButtons(dish)}
+                                </div>
                               </div>
 
-                              <div className="shrink-0 scale-90 sm:scale-100 origin-right">
-                                {renderRatingButtons(dish)}
+                              <div className="pr-2 py-1.5 flex items-stretch">
+                                <DishPhoto
+                                  dishId={dish.id}
+                                  editable={false}
+                                  className="w-14"
+                                  onPhotoReady={(url) => openLightbox(url, dish.id, false)}
+                                />
                               </div>
-
-                              <DishPhoto
-                                dishId={dish.id}
-                                editable={false}
-                                onPhotoReady={(url) => openLightbox(url, dish.id, false)}
-                              />
                             </CardContent>
                           </Card>
                         )
