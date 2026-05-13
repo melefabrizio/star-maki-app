@@ -462,6 +462,7 @@ export function RestaurantView({ restaurantId, onBack, store, isAddDishOpen, set
                                   ref={(h) => { if (h) dishPhotoRefs.current.set(dish.id, h); else dishPhotoRefs.current.delete(dish.id); }}
                                   dishId={dish.id}
                                   editable={true}
+                                  className="max-h-22"
                                   onPhotoReady={(url) => openLightbox(url, dish.id, true)}
                                 />
                               </CardContent>
