@@ -26,13 +26,18 @@ Ti è mai capitato di essere al sushi, ordinare decine di piatti e poi chiederti
 
 ## ✨ Perché sceglierlo
 
-Abbiamo costruito *maki con una filosofia precisa: deve essere uno strumento, non un ostacolo.
+*maki ha una filosofia precisa: essere uno strumento, non un ostacolo.
 
 - **🚫 Niente Account**: Non serve registrarsi. Apri l'app e sei pronto a ordinare.
 - **🔒 Privacy First**: I tuoi dati (ristoranti, ordini, voti) rimangono salvati localmente sul tuo dispositivo.
 - **📢 Zero Pubblicità**: Nessuna distrazione tra te e i tuoi nigiri.
 - **📱 Esperienza PWA**: Installalo sulla home del tuo smartphone e usalo come un'app nativa, veloce e fluida.
-- **🌓 Design Curato**: Un'interfaccia pulita con una palette di colori ispirata al mondo del sushi (salmon, nori, rice).
+
+## 📸 Anteprima
+
+<div align="center">
+  <img src="public/app-logo.png" width="400" alt="maki app preview" />
+</div>
 
 ## 🚀 Funzionalità principali
 
