@@ -6,103 +6,84 @@
 
 _si legge **"star maki"**_
 
-**Il tuo taccuino digitale per il sushi all you can eat.**
+**Il tuo compagno ideale per il sushi all you can eat.**
 
 [![Live](https://img.shields.io/badge/live-maki.mele.io-2C372D?style=flat-square&logoColor=white)](https://maki.mele.io)
 [![PWA](https://img.shields.io/badge/PWA-installabile-F07868?style=flat-square)](https://maki.mele.io)
 [![License](https://img.shields.io/badge/license-MIT-F4F0E2?style=flat-square&labelColor=2C372D)](LICENSE)
+[![No Ads](https://img.shields.io/badge/ads-none-success?style=flat-square)](https://maki.mele.io)
+[![Privacy](https://img.shields.io/badge/privacy-first-blueviolet?style=flat-square)](https://maki.mele.io)
 
 </div>
 
 ---
 
-## Il problema
+## 🍣 Cos'è *maki?
 
-Sei al ristorante di sushi all you can eat. Devi sfogliare il menu, ricordarti cosa hai ordinato e cosa ti è piaciuto l'ultima volta, e tenere traccia di cosa hai già ordinato e cosa deve ancora arrivare al tavolo.
+Ti è mai capitato di essere al sushi, ordinare decine di piatti e poi chiederti: *"Ma questo l'avevamo ordinato? E quel maki piccante che ci era piaciuto l'altra volta, che numero era?"*
 
-\*maki risolve esattamente questo.
+**\*maki** nasce per rispondere a queste domande. È un taccuino digitale, leggero e veloce, pensato specificamente per le sessioni di sushi all you can eat.
 
-## Cosa fa
+## ✨ Perché sceglierlo
 
-- **Ristoranti multipli** — salva tutti i locali che frequenti, ognuno con la propria memoria
-- **Catalogo piatti** — ogni piatto ha un nome e opzionalmente il numero dal menu; rimane salvato tra una visita e l'altra
-- **Ordine in corso** — aggiungi i piatti che hai ordinato e segna quelli che arrivano al tavolo man mano
-- **Voti** — alla fine di ogni visita puoi segnare cosa riordinare e cosa evitare, così la volta dopo sai già da dove partire
+Abbiamo costruito *maki con una filosofia precisa: deve essere uno strumento, non un ostacolo.
 
-## Dove si usa
+- **🚫 Niente Account**: Non serve registrarsi. Apri l'app e sei pronto a ordinare.
+- **🔒 Privacy First**: I tuoi dati (ristoranti, ordini, voti) rimangono salvati localmente sul tuo dispositivo.
+- **📢 Zero Pubblicità**: Nessuna distrazione tra te e i tuoi nigiri.
+- **📱 Esperienza PWA**: Installalo sulla home del tuo smartphone e usalo come un'app nativa, veloce e fluida.
+- **🌓 Design Curato**: Un'interfaccia pulita con una palette di colori ispirata al mondo del sushi (salmon, nori, rice).
 
-L'app è disponibile come **Progressive Web App** direttamente dal browser, senza installazione obbligatoria:
+## 🚀 Funzionalità principali
 
-### [→ maki.mele.io](https://maki.mele.io)
+- **🗂️ Gestione Ristoranti**: Salva i tuoi locali preferiti. Ognuno mantiene la sua lista piatti e la sua cronologia.
+- **📝 Catalogo Piatti**: Crea un menu personalizzato con nomi e numeri. L'app si ricorda cosa ti è piaciuto e cosa no.
+- **🥢 Ordine in tempo reale**: Aggiungi i piatti al tuo ordine attuale e segnalali con un tap quando arrivano al tavolo. Mai più dubbi su cosa manca!
+- **⭐ Voti e Note**: Dai un voto ai piatti per ricordarti, alla prossima visita, cosa ordinare a colpo sicuro.
 
-Su Android e iOS puoi installarla nella schermata home come un'app nativa tramite il menu del browser → *Aggiungi alla schermata Home*.
+## 📲 Come si usa
 
-## Tech stack
+Non devi scaricare nulla dagli store ufficiali. *maki* è una **Progressive Web App**:
 
-| | |
+1. Visita **[maki.mele.io](https://maki.mele.io)** dal tuo browser mobile.
+2. Su **iOS**: Premi l'icona di condivisione (quadrato con freccia) e seleziona *"Aggiungi alla schermata Home"*.
+3. Su **Android**: Premi i tre puntini in alto a destra e seleziona *"Installa applicazione"*.
+
+## 🛠️ Tech Stack
+
+| Componente | Tecnologia |
 |---|---|
-| Framework | React 19 + TypeScript |
-| Build | Vite 6 |
-| Stile | Tailwind CSS v4 |
-| Font | Fraunces (display) · DM Sans (corpo) |
-| Componenti | Base UI |
-| PWA | vite-plugin-pwa + Workbox |
-| Analytics | Umami |
+| **Framework** | React 19 + TypeScript |
+| **Build Tool** | Vite 6 |
+| **Styling** | Tailwind CSS v4 |
+| **Database** | Dexie.js (IndexedDB) |
+| **PWA** | vite-plugin-pwa |
+| **Typography** | Fraunces & DM Sans |
 
-## Sviluppo locale
+## 💻 Sviluppo Locale
 
-**Prerequisiti:** Node.js 18+
+Se vuoi contribuire o far girare *maki* in locale:
 
 ```bash
-# Clona il repo
+# Clona il repository
 git clone https://github.com/melefabrizio/star-maki-app
 cd star-maki-app
 
 # Installa le dipendenze
 npm install
 
-# Avvia il dev server
+# Avvia il server di sviluppo
 npm run dev
-```
-
-L'app sarà disponibile su `http://localhost:3000`.
-
-Per testare la PWA (service worker + manifest) usa invece:
-
-```bash
-npm run build && npm run preview
 ```
 
 ---
 
-## Contribuire
+## 🤝 Contribuire
 
-Contributi benvenuti — che si tratti di bug, idee o miglioramenti all'interfaccia.
-
-### Come iniziare
-
-1. **Fai un fork** del repo e crea un branch dal tuo `main`:
-   ```bash
-   git checkout -b fix/nome-del-fix
-   ```
-2. **Fai le modifiche**, assicurandoti che il build passi:
-   ```bash
-   npm run build
-   ```
-3. **Apri una Pull Request** descrivendo cosa hai cambiato e perché.
-
-### Linee guida
-
-- Mantieni lo stile visivo coerente con la palette esistente (salmon · nori · rice)
-- Preferisci modifiche piccole e focalizzate a PR monolitiche
-- Se stai aggiungendo una feature nuova, aprila prima come issue per discuterne
-
-### Segnalare un bug
-
-Apri una [issue](https://github.com/melefabrizio/star-maki-app/issues) con una descrizione del problema, il browser/dispositivo usato e gli step per riprodurlo.
+I contributi sono sempre i benvenuti! Se hai un'idea per una nuova feature o hai trovato un bug, apri una [issue](https://github.com/melefabrizio/star-maki-app/issues) o invia una Pull Request.
 
 ---
 
 <div align="center">
-  <sub>Made with ♥ by <a href="https://mele.io">Fab</a></sub>
+  <sub>Creato con ❤️ da <a href="https://mele.io">Fab</a></sub>
 </div>
