@@ -44,10 +44,14 @@ body {
   pointer-events: none;
 }
 
-/* ── Cornice telefono (mockup ad alta fedeltà, theme-aware) ── */
+/* ── Cornice telefono (mockup ad alta fedeltà, theme-aware) ──
+   Il contenuto è renderizzato alle dimensioni logiche di un telefono vero
+   (390×844) e poi scalato giù con transform: così le proporzioni sono reali
+   e i nomi non si troncano più del dovuto. --scale guida tutta la cornice. */
 .phone {
+  --scale: 0.72;
   position: relative;
-  width: min(300px, 74vw);
+  width: max-content;
   padding: 0.55rem;
   border-radius: 2.9rem;
   background: #2c372d; /* bezel nori, costante */
@@ -55,12 +59,24 @@ body {
     0 2px 12px rgba(0, 0, 0, 0.05),
     0 34px 70px -26px rgba(20, 23, 20, 0.45);
 }
+@media (max-width: 480px) {
+  .phone {
+    --scale: 0.62;
+  }
+}
 .phone-screen {
   position: relative;
+  width: calc(390px * var(--scale));
+  height: calc(844px * var(--scale));
   border-radius: 2.45rem;
   overflow: hidden;
   background: var(--color-background);
-  aspect-ratio: 9 / 19;
+}
+.screen-inner {
+  width: 390px;
+  height: 844px;
+  transform: scale(var(--scale));
+  transform-origin: top left;
 }
 .phone-notch {
   position: absolute;
