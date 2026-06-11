@@ -1,3 +1,129 @@
 /* Landing entry stylesheet — riusa gli stessi token, font e dark mode dell'app.
-   Stili specifici della landing andranno qui sotto. */
+   Tutto ciò che è specifico della landing vive qui; l'app non viene toccata. */
 @import "../index.css";
+
+:root {
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* verde nori profondo, costante in entrambi i temi: la "sala buia" dell'izakaya */
+  --izakaya: #1b211b;
+  --izakaya-ink: #ede9d8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Nessuna barra orizzontale: il glow dell'hero può bordare senza creare scroll */
+body {
+  overflow-x: clip;
+}
+
+/* Misura comoda per la prosa */
+.measure {
+  max-width: 34ch;
+}
+
+/* Alone caldo dietro l'hero — tenue, dietro al contenuto, non tocca il contrasto del testo */
+.hero-glow {
+  position: relative;
+  isolation: isolate;
+}
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: -20% 0 auto 0;
+  height: 80%;
+  background: radial-gradient(
+    55% 55% at 72% 18%,
+    color-mix(in oklab, var(--color-salmon) 24%, transparent),
+    transparent 70%
+  );
+  filter: blur(48px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── Cornice telefono (mockup ad alta fedeltà, theme-aware) ── */
+.phone {
+  position: relative;
+  width: min(300px, 74vw);
+  padding: 0.55rem;
+  border-radius: 2.9rem;
+  background: #2c372d; /* bezel nori, costante */
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.05),
+    0 34px 70px -26px rgba(20, 23, 20, 0.45);
+}
+.phone-screen {
+  position: relative;
+  border-radius: 2.45rem;
+  overflow: hidden;
+  background: var(--color-background);
+  aspect-ratio: 9 / 19;
+}
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36%;
+  height: 1.05rem;
+  background: #2c372d;
+  border-radius: 0 0 0.9rem 0.9rem;
+  z-index: 5;
+}
+
+/* Band izakaya — volutamente scura in entrambi i temi */
+.band-izakaya {
+  background: var(--izakaya);
+  color: var(--izakaya-ink);
+}
+
+/* ── Motion: una sola coreografia in load, zero-JS ──
+   Il contenuto è visibile di default; l'animazione è solo un arricchimento
+   (niente opacity:0 senza motion → niente pagina vuota per crawler / reduced-motion). */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    animation: reveal 0.7s var(--ease-out-quint) both;
+    animation-delay: calc(var(--i, 0) * 85ms);
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .phone-rise {
+    opacity: 0;
+    animation: phoneRise 0.95s var(--ease-out-expo) both;
+    animation-delay: 0.18s;
+  }
+  @keyframes phoneRise {
+    from {
+      opacity: 0;
+      transform: translateY(30px) rotate(-2.2deg) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Rete di sicurezza reduced-motion: spegne anche il pulse "in arrivo" */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
