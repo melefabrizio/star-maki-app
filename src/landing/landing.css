@@ -90,6 +90,38 @@ body {
   z-index: 5;
 }
 
+/* ── Hero asimmetrico: il telefono rompe la griglia ──
+   Mobile: sotto la copy, centrato, appena inclinato. Desktop: assoluto sulla
+   destra, ingrandito e inclinato, sborda oltre il bordo (clip via body). */
+.hero-phone {
+  --tilt: -2deg;
+}
+.hero-phone-tilt {
+  transform: rotate(var(--tilt));
+  transform-origin: center;
+}
+@media (min-width: 1024px) {
+  .hero-phone {
+    --tilt: -4deg;
+    position: absolute;
+    top: 1.5rem;
+    right: -2rem;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    z-index: 1;
+  }
+  .hero-phone .phone {
+    --scale: 0.82;
+  }
+  /* ombra-tavolo più decisa quando il telefono è grande e inclinato */
+  .hero-phone .phone {
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.05),
+      0 50px 90px -30px rgba(20, 23, 20, 0.5);
+  }
+}
+
 /* Band izakaya — volutamente scura in entrambi i temi */
 .band-izakaya {
   background: var(--izakaya);
@@ -123,7 +155,7 @@ body {
   @keyframes phoneRise {
     from {
       opacity: 0;
-      transform: translateY(30px) rotate(-2.2deg) scale(0.97);
+      transform: translateY(42px);
     }
     to {
       opacity: 1;

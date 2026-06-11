@@ -46,18 +46,18 @@
 
     <main>
       <!-- ───────────────────────── Hero ───────────────────────── -->
-      <section class="hero-glow mx-auto max-w-6xl px-5 pb-20 pt-10 sm:px-8 sm:pt-16 lg:pb-28">
-        <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-8">
-          <!-- Copy -->
-          <div class="relative z-10 lg:col-span-7">
+      <section class="hero-section hero-glow relative pb-24 pt-10 sm:pt-16 lg:pb-32">
+        <!-- Copy -->
+        <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
+          <div class="max-w-2xl lg:max-w-[56%]">
             <p class="reveal flex items-center gap-2 text-sm font-medium text-muted-foreground" style="--i: 0">
               <span class="inline-block h-1.5 w-1.5 rounded-full bg-salmon"></span>
               Mai più «chi ha ordinato questi?»
             </p>
 
             <h1
-              class="reveal mt-5 font-display font-bold leading-[1.04] tracking-[-0.02em] text-balance text-foreground"
-              style="--i: 1; font-size: clamp(2.25rem, 6.5vw, 4.5rem)"
+              class="reveal mt-5 font-display font-bold leading-[1.02] tracking-[-0.025em] text-balance text-foreground"
+              style="--i: 1; font-size: clamp(2.25rem, 6.2vw, 5rem)"
             >
               Il taccuino per il sushi all you can eat.
             </h1>
@@ -81,9 +81,11 @@
               </p>
             </div>
           </div>
+        </div>
 
-          <!-- Telefono (mockup ad alta fedeltà della UI reale) -->
-          <div class="flex justify-center lg:col-span-5 lg:justify-end">
+        <!-- Telefono: desktop sborda inclinato a destra; mobile sotto, centrato -->
+        <div class="hero-phone mx-auto mt-16 flex max-w-6xl justify-center px-5 sm:px-8">
+          <div class="hero-phone-tilt">
             <div class="phone phone-rise" role="img" aria-label="La schermata «Ordinato» di *maki per Sakura Sushi: due piatti in arrivo (Tartare di salmone, Uramaki avocado) e uno arrivato (Sashimi misto) votato come da rifare.">
               <div class="phone-notch"></div>
               <div class="phone-screen">
