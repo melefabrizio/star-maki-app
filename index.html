@@ -23,19 +23,28 @@
     <meta name="twitter:title" content="*maki – Tracker ordini per il sushi all you can eat" />
     <meta name="twitter:description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti di ogni ristorante e non perdere più il conto." />
     <meta name="twitter:image" content="https://maki.mele.io/icon-512.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="*maki" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="66db3353-1be7-4058-bfa0-37c3d2b0cb16"></script>
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="stylesheet" href="/src/landing/landing.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- SEGNAPOSTO: verifica build multi-page + Tailwind. Il design vero arriva dopo. -->
+    <main class="min-h-[100dvh] flex flex-col items-center justify-center gap-6 bg-background px-6 text-center text-foreground">
+      <p class="font-display text-6xl text-salmon">*maki</p>
+      <h1 class="font-display text-2xl">Landing — segnaposto</h1>
+      <p class="max-w-md text-muted-foreground">
+        Se vedi il font serif (Fraunces), il colore salmon e il box qui sotto,
+        la build multi-page e Tailwind funzionano.
+      </p>
+      <a
+        href="/app/"
+        class="rounded-full bg-salmon px-6 py-3 font-semibold text-white transition-transform hover:bg-salmon/90 active:scale-95"
+      >
+        Vai all'app →
+      </a>
+    </main>
   </body>
 </html>
-
