@@ -140,6 +140,8 @@ A committed three-color brand system — warm rice ground, deep nori ink, salmon
 ### Named Rules
 **The One Warm Voice Rule.** Salmon is the only accent and appears on ≤10% of any screen — one CTA, one active toggle, one focus ring at a time. Its rarity is what makes a reorder feel like a small celebration. Two salmon elements competing for attention means one is wrong.
 
+**The Star Exception.** The single sanctioned decorative use of salmon is the asterisk in the `*maki` wordmark — it's the literal "star" of "star maki", so it carries meaning, not decoration. The asterisk is salmon; the `maki` letters stay `text-nori` (sage in dark). This is the *only* exception to the One Warm Voice Rule, and it applies to the brand mark wherever it appears (app header, landing). Screen titles and the restaurant name are *not* the brand mark: they take plain `text-nori`, no asterisk, no salmon.
+
 **The No Cold Gray Rule.** There is no neutral gray in this system. Every "gray" is a desaturated green or warm sand pulled toward nori or rice. A cold `#888` anywhere is a bug.
 
 ## 3. Typography

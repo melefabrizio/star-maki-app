@@ -39,7 +39,7 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
     <div className="max-w-3xl mx-auto p-4 flex flex-col sm:pb-4">
       <header className="flex justify-between items-center top-0 py-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight font-display text-nori">*maki</h1>
+          <h1 className="text-3xl font-bold tracking-tight font-display text-nori"><span className="text-salmon">*</span>maki</h1>
           <p className="text-muted-foreground mt-1 text-[15px]">Organizza i tuoi ordini All You Can Eat</p>
         </div>
 
