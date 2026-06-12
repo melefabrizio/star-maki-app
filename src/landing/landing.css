@@ -8,6 +8,8 @@
   /* verde nori profondo, costante in entrambi i temi: la "sala buia" dell'izakaya */
   --izakaya: #1b211b;
   --izakaya-ink: #ede9d8;
+  /* abilita la transizione block-size: auto dei pannelli FAQ (progressive enhancement) */
+  interpolate-size: allow-keywords;
 }
 
 html {
@@ -135,6 +137,50 @@ a:focus-visible {
 .band-izakaya {
   background: var(--izakaya);
   color: var(--izakaya-ink);
+}
+
+/* ── FAQ: accordion esclusivo con <details name="faq"> nativi, zero JS ──
+   Un solo pannello aperto per volta (name condiviso). Il contenuto resta nel
+   DOM e leggibile anche senza CSS/JS: l'animazione è solo un arricchimento. */
+.faq-item > summary {
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item > summary:focus-visible {
+  outline: 2px solid var(--color-salmon);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+/* Marcatore +: ruota a × e si accende salmon quando il pannello è aperto
+   (One Warm Voice: un solo pannello aperto = un solo marcatore salmon). */
+.faq-marker {
+  transition:
+    transform 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo);
+}
+.faq-item[open] .faq-marker {
+  transform: rotate(45deg);
+  color: var(--color-salmon);
+}
+
+/* Apertura morbida: anima l'altezza del contenuto là dove ::details-content
+   è supportato; altrove il pannello si apre comunque, solo senza transizione. */
+@media (prefers-reduced-motion: no-preference) {
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.4s var(--ease-out-expo),
+      content-visibility 0.4s allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
 }
 
 /* ── Motion: una sola coreografia in load, zero-JS ──
