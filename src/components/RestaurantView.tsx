@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { motion, useAnimationControls } from "motion/react";
 import { ArrowLeft, Plus, Check, Clock, ThumbsUp, ThumbsDown, CircleDashed, Trash2, Search, Pencil } from "lucide-react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppOutletContext } from "../App";
 import { Dish } from "../lib/store";
 import { useHaptic } from "../lib/useHaptic";
@@ -23,13 +23,11 @@ import { DishPhoto, type DishPhotoHandle } from "./DishPhoto";
 import { PhotoLightbox } from "./PhotoLightbox";
 import { deletePhoto, deletePhotos } from "../lib/imageStore";
 
-interface RestaurantViewProps {
-  tab: "active" | "history";
-}
-
-export function RestaurantView({ tab }: RestaurantViewProps) {
+export function RestaurantView() {
   const { restaurantId } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
+  const tab = location.pathname.endsWith("/menu") ? "history" : "active";
   const { store, isAddDishOpen, setIsAddDishOpen } = useAppOutletContext();
   const { state, addDish, updateDish, deleteDish, updateDishRating, addOrderItem, toggleOrderItemArrived, removeOrderItem, clearActiveOrder, deleteRestaurant } = store;
   const haptic = useHaptic();

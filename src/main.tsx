@@ -23,17 +23,13 @@ const router = createBrowserRouter(
           path: 'r/:restaurantId',
           element: (
             <Suspense fallback={restaurantFallback}>
-              <RestaurantView tab="active" />
+              <RestaurantView />
             </Suspense>
           ),
-        },
-        {
-          path: 'r/:restaurantId/menu',
-          element: (
-            <Suspense fallback={restaurantFallback}>
-              <RestaurantView tab="history" />
-            </Suspense>
-          ),
+          children: [
+            {index: true},
+            {path: 'menu'},
+          ],
         },
       ],
     },
