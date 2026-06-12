@@ -18,7 +18,13 @@ import {
 
 export function Home() {
   const navigate = useNavigate();
-  const { store, isAddRestaurantOpen, setIsAddRestaurantOpen } = useAppOutletContext();
+  const {
+    store,
+    isAddRestaurantOpen,
+    openAddRestaurant,
+    closeAddRestaurant,
+    onAddRestaurantOpenChange,
+  } = useAppOutletContext();
   const { state, addRestaurant } = store;
   const [newRestaurantName, setNewRestaurantName] = useState("");
 
@@ -27,7 +33,7 @@ export function Home() {
     if (newRestaurantName.trim()) {
       addRestaurant(newRestaurantName.trim());
       setNewRestaurantName("");
-      setIsAddRestaurantOpen(false);
+      closeAddRestaurant();
     }
   };
 
@@ -39,7 +45,7 @@ export function Home() {
           <p className="text-muted-foreground mt-1 text-[15px]">Organizza i tuoi ordini All You Can Eat</p>
         </div>
 
-        <Dialog open={isAddRestaurantOpen} onOpenChange={setIsAddRestaurantOpen}>
+        <Dialog open={isAddRestaurantOpen} onOpenChange={onAddRestaurantOpenChange}>
           <DialogTrigger render={<Button className="hidden sm:flex h-10 rounded-full gap-2 px-5 bg-salmon text-white font-semibold hover:bg-salmon/90 active:scale-[0.97] transition-all" />}>
             <Plus className="w-4 h-4" />
             Nuovo
@@ -80,7 +86,7 @@ export function Home() {
             <p className="text-muted-foreground mb-6 max-w-sm mx-auto text-[15px] leading-relaxed">
               Aggiungi un ristorante per iniziare a organizzare i tuoi piatti.
             </p>
-            <Button onClick={() => setIsAddRestaurantOpen(true)} variant="outline" className="rounded-full h-10 px-6 text-sm shadow-[0_2px_10px_rgba(0,0,0,0.03)] border-transparent bg-card hover:bg-card hover:text-salmon hover:shadow-md transition-all">
+            <Button onClick={() => openAddRestaurant()} variant="outline" className="rounded-full h-10 px-6 text-sm shadow-[0_2px_10px_rgba(0,0,0,0.03)] border-transparent bg-card hover:bg-card hover:text-salmon hover:shadow-md transition-all">
               Aggiungi Ristorante
             </Button>
           </div>

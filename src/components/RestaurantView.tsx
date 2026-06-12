@@ -22,13 +22,19 @@ import {
 import { DishPhoto, type DishPhotoHandle } from "./DishPhoto";
 import { PhotoLightbox } from "./PhotoLightbox";
 import { deletePhoto, deletePhotos } from "../lib/imageStore";
+import { OVERLAY, useOverlay, useOverlayMatch } from "../lib/useOverlayNavigation";
 
 export function RestaurantView() {
   const { restaurantId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const tab = location.pathname.endsWith("/menu") ? "history" : "active";
-  const { store, isAddDishOpen, setIsAddDishOpen } = useAppOutletContext();
+  const {
+    store,
+    isAddDishOpen,
+    closeAddDish,
+    onAddDishOpenChange,
+  } = useAppOutletContext();
   const { state, addDish, updateDish, deleteDish, updateDishRating, addOrderItem, toggleOrderItemArrived, removeOrderItem, clearActiveOrder, deleteRestaurant } = store;
   const haptic = useHaptic();
   
@@ -36,9 +42,21 @@ export function RestaurantView() {
   const dishes = useMemo(() => state.dishes.filter(d => d.restaurantId === restaurantId), [state.dishes, restaurantId]);
   const activeOrder = useMemo(() => (restaurantId ? state.activeOrders[restaurantId] || [] : []), [state.activeOrders, restaurantId]);
 
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [editingDish, setEditingDish] = useState<Dish | null>(null);
-  const [deletingDish, setDeletingDish] = useState<Dish | null>(null);
+  const deleteRestaurantOverlay = useOverlay(OVERLAY.deleteRestaurant);
+  const editDishOverlay = useOverlayMatch("edit-dish");
+  const deleteDishOverlay = useOverlayMatch("delete-dish");
+  const lightboxOverlay = useOverlayMatch("lightbox");
+
+  const editingDish = editDishOverlay.id
+    ? dishes.find((d) => d.id === editDishOverlay.id) ?? null
+    : null;
+  const deletingDish = deleteDishOverlay.id
+    ? dishes.find((d) => d.id === deleteDishOverlay.id) ?? null
+    : null;
+  const lightboxUrl = lightboxOverlay.isOpen ? lightboxOverlay.state.lightboxUrl ?? null : null;
+  const lightboxEditable = lightboxOverlay.state.lightboxEditable ?? false;
+  const lightboxDishId = lightboxOverlay.id ?? "";
+
   const [editName, setEditName] = useState("");
   const [editNumber, setEditNumber] = useState("");
   const [newDishName, setNewDishName] = useState("");
@@ -46,9 +64,6 @@ export function RestaurantView() {
   
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
-  const [lightboxEditable, setLightboxEditable] = useState(false);
-  const [lightboxDishId, setLightboxDishId] = useState("");
   const dishPhotoRefs = useRef<Map<string, DishPhotoHandle>>(new Map());
 
   const pendingItems = activeOrder.filter(item => !item.arrived);
@@ -64,11 +79,19 @@ export function RestaurantView() {
     prevPendingCount.current = pendingItems.length;
   }, [pendingItems.length, badgeControls]);
 
-  const openLightbox = useCallback((url: string, dishId: string, editable: boolean) => {
-    setLightboxUrl(url);
-    setLightboxDishId(dishId);
-    setLightboxEditable(editable);
-  }, []);
+  useEffect(() => {
+    if (editingDish) {
+      setEditName(editingDish.name);
+      setEditNumber(editingDish.number ?? "");
+    }
+  }, [editingDish]);
+
+  const openLightbox = useCallback(
+    (url: string, dishId: string, editable: boolean) => {
+      lightboxOverlay.open(dishId, { lightboxUrl: url, lightboxEditable: editable });
+    },
+    [lightboxOverlay.open],
+  );
 
   const handleLightboxReplace = useCallback(() => {
     dishPhotoRefs.current.get(lightboxDishId)?.triggerReplace();
@@ -77,8 +100,8 @@ export function RestaurantView() {
   const handleLightboxDelete = useCallback(async () => {
     await deletePhoto(lightboxDishId);
     dishPhotoRefs.current.get(lightboxDishId)?.clearPhoto();
-    setLightboxUrl(null);
-  }, [lightboxDishId]);
+    lightboxOverlay.close();
+  }, [lightboxDishId, lightboxOverlay.close]);
 
   if (!restaurant || !restaurantId) {
     return <Navigate to="/" replace />;
@@ -92,7 +115,7 @@ export function RestaurantView() {
       haptic();
       setNewDishName("");
       setNewDishNumber("");
-      setIsAddDishOpen(false);
+      closeAddDish();
     }
   };
 
@@ -100,7 +123,7 @@ export function RestaurantView() {
     e.preventDefault();
     if (editingDish && editName.trim()) {
       updateDish(editingDish.id, editName.trim(), editNumber.trim() || undefined);
-      setEditingDish(null);
+      editDishOverlay.close();
     }
   };
 
@@ -145,14 +168,14 @@ export function RestaurantView() {
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
-              onClick={() => setIsDeleteOpen(true)}
+              onClick={() => deleteRestaurantOverlay.open()}
               className="h-9 rounded-full px-3 gap-1.5 text-muted-foreground/50 hover:text-destructive hover:bg-destructive/5 transition-all"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span className="text-xs font-medium">Elimina</span>
             </Button>
 
-          <Dialog open={isAddDishOpen} onOpenChange={setIsAddDishOpen}>
+          <Dialog open={isAddDishOpen} onOpenChange={onAddDishOpenChange}>
             <DialogTrigger render={<Button className="hidden sm:flex h-10 rounded-full gap-2 px-5 bg-salmon text-white font-semibold hover:bg-salmon/90 active:scale-[0.97] transition-all" />}>
               <Plus className="w-4 h-4" />
               Piatto
@@ -432,13 +455,13 @@ export function RestaurantView() {
                                     )}
                                     <span className="flex-1 font-semibold text-[15px] sm:text-base text-nori truncate">{dish.name}</span>
                                     <button
-                                      onClick={() => { setEditingDish(dish); setEditName(dish.name); setEditNumber(dish.number ?? ""); }}
+                                      onClick={() => editDishOverlay.open(dish.id)}
                                       className="shrink-0 h-7 w-7 rounded-full flex items-center justify-center text-muted-foreground/40 hover:text-nori hover:bg-muted transition-colors"
                                     >
                                       <Pencil className="w-3.5 h-3.5" />
                                     </button>
                                     <button
-                                      onClick={() => setDeletingDish(dish)}
+                                      onClick={() => deleteDishOverlay.open(dish.id)}
                                       className="shrink-0 h-7 w-7 rounded-full flex items-center justify-center text-muted-foreground/40 hover:text-destructive hover:bg-destructive/10 transition-colors"
                                     >
                                       <Trash2 className="w-3.5 h-3.5" />
@@ -483,7 +506,7 @@ export function RestaurantView() {
         </div>
       </Tabs>
 
-      <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+      <Dialog open={deleteRestaurantOverlay.isOpen} onOpenChange={deleteRestaurantOverlay.onOpenChange}>
         <DialogContent className="sm:max-w-md rounded-[2rem]">
           <DialogHeader>
             <DialogTitle className="font-display text-xl text-foreground">Elimina ristorante</DialogTitle>
@@ -497,7 +520,7 @@ export function RestaurantView() {
             </DialogClose>
             <Button
               className="rounded-full h-10 px-6 bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              onClick={() => { deletePhotos(dishes.map(d => d.id)); deleteRestaurant(restaurantId); navigate("/", { replace: true }); }}
+              onClick={() => { deletePhotos(dishes.map(d => d.id)); deleteRestaurant(restaurantId); navigate("/", { replace: true, state: null }); }}
             >
               Elimina
             </Button>
@@ -506,7 +529,7 @@ export function RestaurantView() {
       </Dialog>
 
       {/* Dialog modifica piatto */}
-      <Dialog open={!!editingDish} onOpenChange={open => { if (!open) setEditingDish(null); }}>
+      <Dialog open={editDishOverlay.isOpen} onOpenChange={editDishOverlay.onOpenChange}>
         <DialogContent className="sm:max-w-md rounded-[2rem] shadow-xl">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl text-nori">Modifica Piatto</DialogTitle>
@@ -547,7 +570,7 @@ export function RestaurantView() {
       </Dialog>
 
       {/* Dialog conferma eliminazione piatto */}
-      <Dialog open={!!deletingDish} onOpenChange={open => { if (!open) setDeletingDish(null); }}>
+      <Dialog open={deleteDishOverlay.isOpen} onOpenChange={deleteDishOverlay.onOpenChange}>
         <DialogContent className="sm:max-w-md rounded-[2rem]">
           <DialogHeader>
             <DialogTitle className="font-display text-xl text-foreground">Elimina piatto</DialogTitle>
@@ -561,7 +584,7 @@ export function RestaurantView() {
             </DialogClose>
             <Button
               className="rounded-full h-10 px-6 bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              onClick={() => { deletePhoto(deletingDish!.id); deleteDish(deletingDish!.id); setDeletingDish(null); }}
+              onClick={() => { deletePhoto(deletingDish!.id); deleteDish(deletingDish!.id); deleteDishOverlay.close(); }}
             >
               Elimina
             </Button>
@@ -572,7 +595,7 @@ export function RestaurantView() {
       <PhotoLightbox
         url={lightboxUrl}
         editable={lightboxEditable}
-        onClose={() => setLightboxUrl(null)}
+        onClose={lightboxOverlay.close}
         onReplace={handleLightboxReplace}
         onDelete={handleLightboxDelete}
       />

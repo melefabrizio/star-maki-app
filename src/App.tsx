@@ -3,18 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { Outlet, useLocation, useOutletContext } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { useAppStore } from "./lib/store";
+import { OVERLAY, useOverlay } from "./lib/useOverlayNavigation";
 import { Button } from "./components/ui/button";
 
 export type AppOutletContext = {
   store: ReturnType<typeof useAppStore>;
   isAddRestaurantOpen: boolean;
-  setIsAddRestaurantOpen: (v: boolean) => void;
+  openAddRestaurant: () => void;
+  closeAddRestaurant: () => void;
+  onAddRestaurantOpenChange: (open: boolean) => void;
   isAddDishOpen: boolean;
-  setIsAddDishOpen: (v: boolean) => void;
+  openAddDish: () => void;
+  closeAddDish: () => void;
+  onAddDishOpenChange: (open: boolean) => void;
 };
 
 export function useAppOutletContext() {
@@ -40,17 +45,21 @@ const colophon = (
 
 export default function App() {
   const store = useAppStore();
-  const [isAddRestaurantOpen, setIsAddRestaurantOpen] = useState(false);
-  const [isAddDishOpen, setIsAddDishOpen] = useState(false);
+  const addRestaurant = useOverlay(OVERLAY.addRestaurant);
+  const addDish = useOverlay(OVERLAY.addDish);
   const location = useLocation();
   const inRestaurant = location.pathname.startsWith("/r/");
 
   const outletContext: AppOutletContext = {
     store,
-    isAddRestaurantOpen,
-    setIsAddRestaurantOpen,
-    isAddDishOpen,
-    setIsAddDishOpen,
+    isAddRestaurantOpen: addRestaurant.isOpen,
+    openAddRestaurant: addRestaurant.open,
+    closeAddRestaurant: addRestaurant.close,
+    onAddRestaurantOpenChange: addRestaurant.onOpenChange,
+    isAddDishOpen: addDish.isOpen,
+    openAddDish: addDish.open,
+    closeAddDish: addDish.close,
+    onAddDishOpenChange: addDish.onOpenChange,
   };
 
   return (
@@ -66,7 +75,7 @@ export default function App() {
         <div className="sm:hidden px-4 pt-3 pb-6 flex flex-col items-center gap-3">
           {!inRestaurant && store.state.restaurants.length > 0 && (
             <Button
-              onClick={() => setIsAddRestaurantOpen(true)}
+              onClick={() => addRestaurant.open()}
               className="w-full max-w-sm rounded-full h-14 text-base font-semibold gap-2 bg-salmon text-white hover:bg-salmon/90 active:scale-[0.98] transition-all"
             >
               <Plus className="w-5 h-5" />
@@ -75,7 +84,7 @@ export default function App() {
           )}
           {inRestaurant && (
             <Button
-              onClick={() => setIsAddDishOpen(true)}
+              onClick={() => addDish.open()}
               className="w-full max-w-sm rounded-full h-14 text-base font-semibold gap-2 bg-salmon text-white hover:bg-salmon/90 active:scale-[0.98] transition-all"
             >
               <Plus className="w-5 h-5" />
