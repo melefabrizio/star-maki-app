@@ -24,12 +24,12 @@ Sei al sushi all you can eat: il menù è infinito, i piatti arrivano alla rinfu
 
 ## Cosa fa
 
-- **Un menù per ogni ristorante** — ogni locale tiene il suo catalogo di piatti (nome + numero dal menù, se vuoi) e la sua memoria, visita dopo visita
-- **Ordine al tavolo** — aggiungi i piatti che ordini e spunta quelli che arrivano, così non perdi il conto nella ressa di portate
-- **Foto dei piatti** — attacca una foto a ogni piatto per riconoscerlo al volo quando atterra in tavola
-- **Pollice su, pollice giù** — a fine cena vota cosa rifare e cosa evitare; la volta dopo i preferiti sono già in cima
-- **Tutto in locale** — niente account, niente cloud: i dati, foto comprese, vivono solo sul tuo telefono
-- **Installabile e offline** — è una PWA: funziona anche senza rete, con dark mode di serie
+- **Un menù per ogni ristorante**: ogni locale tiene il suo catalogo di piatti (nome + numero dal menù, se vuoi) e la sua memoria, visita dopo visita
+- **Ordine al tavolo**: aggiungi i piatti che ordini e spunta quelli che arrivano, così non perdi il conto nella ressa di portate
+- **Foto dei piatti**: attacca una foto a ogni piatto per riconoscerlo al volo quando atterra in tavola
+- **Pollice su, pollice giù**: a fine cena vota cosa rifare e cosa evitare; la volta dopo i preferiti sono già in cima
+- **Tutto in locale**: niente account, niente cloud: i dati, foto comprese, vivono solo sul tuo telefono
+- **Installabile e offline**: è una PWA: funziona anche senza rete, con dark mode di serie
 
 ## Provala
 
@@ -80,7 +80,7 @@ npm run build && npm run preview
 
 ## Contribuire
 
-Contributi benvenuti — che si tratti di bug, idee o miglioramenti all'interfaccia.
+Contributi benvenuti, che si tratti di bug, idee o miglioramenti all'interfaccia.
 
 ### Come iniziare
 
