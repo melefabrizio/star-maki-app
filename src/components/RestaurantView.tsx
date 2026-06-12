@@ -66,6 +66,22 @@ export function RestaurantView({ tab }: RestaurantViewProps) {
     prevPendingCount.current = pendingItems.length;
   }, [pendingItems.length, badgeControls]);
 
+  const openLightbox = useCallback((url: string, dishId: string, editable: boolean) => {
+    setLightboxUrl(url);
+    setLightboxDishId(dishId);
+    setLightboxEditable(editable);
+  }, []);
+
+  const handleLightboxReplace = useCallback(() => {
+    dishPhotoRefs.current.get(lightboxDishId)?.triggerReplace();
+  }, [lightboxDishId]);
+
+  const handleLightboxDelete = useCallback(async () => {
+    await deletePhoto(lightboxDishId);
+    dishPhotoRefs.current.get(lightboxDishId)?.clearPhoto();
+    setLightboxUrl(null);
+  }, [lightboxDishId]);
+
   if (!restaurant || !restaurantId) {
     return <Navigate to="/" replace />;
   }
@@ -89,22 +105,6 @@ export function RestaurantView({ tab }: RestaurantViewProps) {
       setEditingDish(null);
     }
   };
-
-  const openLightbox = useCallback((url: string, dishId: string, editable: boolean) => {
-    setLightboxUrl(url);
-    setLightboxDishId(dishId);
-    setLightboxEditable(editable);
-  }, []);
-
-  const handleLightboxReplace = useCallback(() => {
-    dishPhotoRefs.current.get(lightboxDishId)?.triggerReplace();
-  }, [lightboxDishId]);
-
-  const handleLightboxDelete = useCallback(async () => {
-    await deletePhoto(lightboxDishId);
-    dishPhotoRefs.current.get(lightboxDishId)?.clearPhoto();
-    setLightboxUrl(null);
-  }, [lightboxDishId]);
 
   const filteredDishes = dishes.filter(d => 
     d.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
