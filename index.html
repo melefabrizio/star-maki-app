@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>*maki – Il taccuino per il sushi all you can eat</title>
-    <meta name="description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti e non perdere più il conto al sushi all you can eat. Installabile, senza account." />
+    <title>*maki — App per segnare i piatti al sushi all you can eat</title>
+    <meta name="description" content="Segna i piatti che ordini al sushi all you can eat, spunta quando arrivano e ricorda i tuoi preferiti ristorante per ristorante. Gratis, senza account, funziona offline." />
     <link rel="canonical" href="https://maki.mele.io/" />
     <meta name="author" content="Fabrizio Mele" />
     <meta name="theme-color" content="#2C372D" />
@@ -12,8 +12,8 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://maki.mele.io/" />
-    <meta property="og:title" content="*maki – Il taccuino per il sushi all you can eat" />
-    <meta property="og:description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti di ogni ristorante e non perdere più il conto. PWA installabile, senza account." />
+    <meta property="og:title" content="*maki — App per segnare i piatti al sushi all you can eat" />
+    <meta property="og:description" content="Il taccuino che ti allevia l'ansia da menù: segna gli ordini, spunta quando arrivano, ricorda cosa ti è piaciuto." />
     <meta property="og:image" content="https://maki.mele.io/og-image.png" />
     <meta property="og:image:width" content="2400" />
     <meta property="og:image:height" content="1260" />
@@ -23,8 +23,8 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="*maki – Il taccuino per il sushi all you can eat" />
-    <meta name="twitter:description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti di ogni ristorante e non perdere più il conto." />
+    <meta name="twitter:title" content="*maki — App per segnare i piatti al sushi all you can eat" />
+    <meta name="twitter:description" content="Il taccuino che ti allevia l'ansia da menù: segna gli ordini, spunta quando arrivano, ricorda cosa ti è piaciuto." />
     <meta name="twitter:image" content="https://maki.mele.io/og-image.png" />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="66db3353-1be7-4058-bfa0-37c3d2b0cb16"></script>
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
@@ -32,6 +32,31 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="stylesheet" href="/src/landing/landing.css" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "*maki",
+        "url": "https://maki.mele.io/",
+        "description": "Segna i piatti che ordini al sushi all you can eat, spunta quando arrivano e ricorda i tuoi preferiti ristorante per ristorante. Gratis, senza account, funziona offline.",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Web (PWA)",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": "it",
+        "image": "https://maki.mele.io/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Fabrizio Mele"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        }
+      }
+    </script>
   </head>
   <body class="min-h-[100dvh] bg-background font-sans text-foreground antialiased selection:bg-salmon-light selection:text-salmon">
     <!-- ───────────────────────── Header ───────────────────────── -->
@@ -62,12 +87,11 @@
               class="reveal mt-5 font-display font-bold leading-[1.02] tracking-[-0.025em] text-balance text-foreground"
               style="--i: 1; font-size: clamp(2.25rem, 6.2vw, 5rem)"
             >
-              Il taccuino per il sushi all you can eat.
+              L'app per segnare i piatti al sushi all you can eat.
             </h1>
 
             <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-foreground/85 text-pretty" style="--i: 2">
-              Segna cosa hai ordinato, spunta quando arriva al tavolo, e per la prossima volta sai già cosa ti piace. <span class="font-medium text-foreground">*maki</span> tiene
-              traccia e ti allevia l'ansia da menù.
+              <span class="font-medium text-foreground">*maki</span> ti allevia l'ansia da menù: segna cosa hai ordinato, spunta quando arrivano al tavolo, e la prossima volta sai già cosa ti piace.
             </p>
 
             <div class="reveal mt-9 flex flex-wrap items-center gap-x-5 gap-y-6" style="--i: 3">
@@ -79,9 +103,9 @@
                 <svg class="h-5 w-5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
               <p class="flex flex-wrap items-center gap-y-1 text-sm text-muted-foreground">
-                <span class="whitespace-nowrap">Niente account<span class="mx-1.5" aria-hidden="true">·</span></span>
-                <span class="whitespace-nowrap">niente abbonamenti<span class="mx-1.5" aria-hidden="true">·</span></span>
-                <span class="whitespace-nowrap">tutto in locale</span>
+                <span class="whitespace-nowrap">Gratis<span class="mx-1.5" aria-hidden="true">·</span></span>
+                <span class="whitespace-nowrap">niente account<span class="mx-1.5" aria-hidden="true">·</span></span>
+                <span class="whitespace-nowrap">niente cloud</span>
               </p>
             </div>
           </div>
