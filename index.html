@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>*maki – Tracker ordini per il sushi all you can eat</title>
-    <meta name="description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti di ogni ristorante e non perdere più il conto al sushi all you can eat. PWA installabile su iOS e Android, senza account." />
+    <title>*maki – Il taccuino per il sushi all you can eat</title>
+    <meta name="description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti e non perdere più il conto al sushi all you can eat. Installabile, senza account." />
     <link rel="canonical" href="https://maki.mele.io/" />
     <meta name="author" content="Fabrizio Mele" />
     <meta name="theme-color" content="#2C372D" />
@@ -12,30 +12,386 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://maki.mele.io/" />
-    <meta property="og:title" content="*maki – Tracker ordini per il sushi all you can eat" />
+    <meta property="og:title" content="*maki – Il taccuino per il sushi all you can eat" />
     <meta property="og:description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti di ogni ristorante e non perdere più il conto. PWA installabile, senza account." />
-    <meta property="og:image" content="https://maki.mele.io/icon-512.png" />
+    <meta property="og:image" content="https://maki.mele.io/og-image.png" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta property="og:image:alt" content="La schermata «Ordinato» di *maki accanto al titolo «Il taccuino per il sushi all you can eat»." />
     <meta property="og:locale" content="it_IT" />
     <meta property="og:site_name" content="*maki" />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="*maki – Tracker ordini per il sushi all you can eat" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="*maki – Il taccuino per il sushi all you can eat" />
     <meta name="twitter:description" content="Tieni traccia degli ordini al tavolo, ricorda i piatti preferiti di ogni ristorante e non perdere più il conto." />
-    <meta name="twitter:image" content="https://maki.mele.io/icon-512.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="*maki" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="twitter:image" content="https://maki.mele.io/og-image.png" />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="66db3353-1be7-4058-bfa0-37c3d2b0cb16"></script>
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="stylesheet" href="/src/landing/landing.css" />
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="min-h-[100dvh] bg-background font-sans text-foreground antialiased selection:bg-salmon-light selection:text-salmon">
+    <!-- ───────────────────────── Header ───────────────────────── -->
+    <header class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
+      <a href="/" class="font-display text-2xl font-bold tracking-tight text-nori">
+        <span class="text-salmon">*</span>maki
+      </a>
+      <a
+        href="/app/"
+        class="rounded-full px-4 py-2 text-sm font-medium text-foreground transition-colors hover:text-salmon"
+      >
+        Apri l'app&nbsp;→
+      </a>
+    </header>
+
+    <main>
+      <!-- ───────────────────────── Hero ───────────────────────── -->
+      <section class="hero-section hero-glow relative pb-24 pt-10 sm:pt-16 lg:pb-32">
+        <!-- Copy -->
+        <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
+          <div class="max-w-2xl lg:max-w-[56%]">
+            <p class="reveal flex items-center gap-2 text-sm font-medium text-muted-foreground" style="--i: 0">
+              <span class="inline-block h-1.5 w-1.5 rounded-full bg-salmon"></span>
+              «E questo, chi l'ha ordinato?»
+            </p>
+
+            <h1
+              class="reveal mt-5 font-display font-bold leading-[1.02] tracking-[-0.025em] text-balance text-foreground"
+              style="--i: 1; font-size: clamp(2.25rem, 6.2vw, 5rem)"
+            >
+              Il taccuino per il sushi all you can eat.
+            </h1>
+
+            <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-foreground/85 text-pretty" style="--i: 2">
+              Segna cosa hai ordinato, spunta quando arriva al tavolo, e per la prossima volta sai già cosa ti piace. <span class="font-medium text-foreground">*maki</span> tiene
+              traccia e ti allevia l'ansia da menù.
+            </p>
+
+            <div class="reveal mt-9 flex flex-wrap items-center gap-x-5 gap-y-6" style="--i: 3">
+              <a
+                href="/app/"
+                class="group inline-flex h-14 items-center gap-2 rounded-full bg-salmon px-7 text-base font-semibold text-white shadow-[0_10px_30px_-8px_rgba(240,120,104,0.55)] transition-all hover:bg-salmon/90 active:scale-[0.98]"
+              >
+                Apri *maki
+                <svg class="h-5 w-5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <p class="flex flex-wrap items-center gap-y-1 text-sm text-muted-foreground">
+                <span class="whitespace-nowrap">Niente account<span class="mx-1.5" aria-hidden="true">·</span></span>
+                <span class="whitespace-nowrap">niente abbonamenti<span class="mx-1.5" aria-hidden="true">·</span></span>
+                <span class="whitespace-nowrap">tutto in locale</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Telefono: desktop sborda inclinato a destra; mobile sotto, centrato -->
+        <div class="hero-phone mx-auto mt-12 flex max-w-6xl justify-center px-5 sm:mt-16 sm:px-8">
+          <div class="hero-phone-tilt">
+            <div class="phone phone-rise" role="img" aria-label="La schermata «Ordinato» di *maki per Sakura Sushi: due piatti in arrivo (Tartare di salmone, Uramaki avocado) e uno arrivato (Sashimi misto) votato come da rifare.">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="screen-inner">
+                <div class="flex h-full flex-col text-left">
+                  <!-- header (back + nome + elimina) -->
+                  <div class="px-4 pt-7">
+                    <div class="flex h-14 items-center justify-between border-b border-border/60">
+                      <div class="flex min-w-0 items-center gap-1">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-nori">
+                          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                        </span>
+                        <h2 class="truncate font-display text-xl font-bold text-nori">Sakura Sushi</h2>
+                      </div>
+                      <span class="flex shrink-0 items-center gap-1 px-1 text-muted-foreground/50">
+                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        <span class="text-xs font-medium">Elimina</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- tabs: Ordinato / Menù -->
+                  <div class="px-4 py-2">
+                    <div class="grid h-12 grid-cols-2 rounded-[1rem] bg-muted/50 p-1 shadow-inner">
+                      <span class="flex items-center justify-center rounded-[0.75rem] bg-card text-sm font-medium text-salmon shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                        Ordinato
+                        <span class="ml-2 rounded-full bg-salmon/10 px-2 py-0.5 text-[10px] font-bold text-salmon">3</span>
+                      </span>
+                      <span class="flex items-center justify-center rounded-[0.75rem] text-sm font-medium text-foreground/60">Menù</span>
+                    </div>
+                  </div>
+                  <!-- contenuto: In arrivo / Arrivati -->
+                  <div class="flex-1 space-y-5 px-3 py-3">
+                    <!-- IN ARRIVO -->
+                    <div class="space-y-2">
+                      <h3 class="flex items-center gap-2 px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                        <svg class="h-3.5 w-3.5 text-salmon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        In arrivo (3)
+                      </h3>
+                      <div class="flex items-center gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                        <span class="h-9 w-9 shrink-0 rounded-full border-2 border-border bg-card shadow-sm"></span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted font-mono text-xs font-semibold text-muted-foreground">42</span>
+                        <span class="flex-1 truncate text-[15px] font-medium text-nori">Tartare di salmone</span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted-foreground/50">
+                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                        <span class="h-9 w-9 shrink-0 rounded-full border-2 border-border bg-card shadow-sm"></span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted font-mono text-xs font-semibold text-muted-foreground">7</span>
+                        <span class="flex-1 truncate text-[15px] font-medium text-nori">Uramaki avocado</span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted-foreground/50">
+                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                        <span class="h-9 w-9 shrink-0 rounded-full border-2 border-border bg-card shadow-sm"></span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted font-mono text-xs font-semibold text-muted-foreground">15</span>
+                        <span class="flex-1 truncate text-[15px] font-medium text-nori">Tempura di gamberi</span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted-foreground/50">
+                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- ARRIVATI -->
+                    <div class="space-y-2">
+                      <div class="flex items-center justify-between px-2">
+                        <h3 class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                          Arrivati (2)
+                        </h3>
+                        <span class="text-xs text-muted-foreground">Pulisci</span>
+                      </div>
+                      <div class="flex items-center gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 opacity-80 shadow-sm">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-nori/20 bg-nori/5 text-nori">
+                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                        </span>
+                        <span class="flex-1 truncate text-[15px] font-medium text-muted-foreground line-through decoration-muted-foreground/30">Sashimi misto</span>
+                        <span class="flex shrink-0 items-center rounded-full border border-border/30 bg-muted/40 p-1">
+                          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-card text-salmon shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                          </span>
+                          <span class="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground opacity-60">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+                          </span>
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 opacity-80 shadow-sm">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-nori/20 bg-nori/5 text-nori">
+                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                        </span>
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted/50 font-mono text-xs font-medium text-muted-foreground/70">3</span>
+                        <span class="flex-1 truncate text-[15px] font-medium text-muted-foreground line-through decoration-muted-foreground/30">Edamame</span>
+                        <span class="flex shrink-0 items-center rounded-full border border-border/30 bg-muted/40 p-1">
+                          <span class="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground opacity-60">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                          </span>
+                          <span class="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground opacity-60">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- FAB (footer mobile dell'app) -->
+                  <div class="px-4 pb-6 pt-1">
+                    <div class="flex h-14 items-center justify-center gap-2 rounded-full bg-salmon text-base font-semibold text-white shadow-[0_10px_22px_-8px_rgba(240,120,104,0.55)]">
+                      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                      Nuovo Piatto
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────── Narrativa: il problema ─────────────────── -->
+      <section class="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 sm:py-24">
+        <p class="font-display text-2xl font-medium leading-snug text-balance text-foreground sm:text-3xl">
+          Il sushi all you can eat è bellissimo, ma un filo caotico.
+        </p>
+        <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pretty text-foreground/80">
+          Fiumi di piatti che arrivano, piatti che mancano, e quel maki fritto che ti stuzzica la fantasia
+          ma che non ricordi se sia <em>davvero</em> buono. *maki tiene traccia al
+          posto tuo: uno spazio per ogni ristorante, pronto al secondo round.
+        </p>
+      </section>
+
+      <!-- ─────────────────── Cosa fa: 3 beat alternati ─────────────────── -->
+      <section class="mx-auto max-w-5xl space-y-20 px-5 pb-8 sm:px-8 sm:space-y-28">
+        <!-- Beat 1 -->
+        <div class="grid items-center gap-10 sm:grid-cols-2 sm:gap-14">
+          <div>
+            <h2 class="font-display text-3xl font-bold tracking-tight text-balance text-nori sm:text-4xl">
+              Segna e segui, al volo
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-pretty text-foreground/80">
+              Aggiungi i piatti mentre li ordini. Spunta quando arrivano. L'applicazione
+              ti permette di tenere traccia di tutto, senza più dubbi amletici su cosa hai ordinato.
+            </p>
+          </div>
+          <div class="flex justify-center sm:justify-start">
+            <div class="w-full max-w-md space-y-2">
+              <!-- In arrivo: checkbox vuota da spuntare (come nella tab «Ordinato») -->
+              <div class="flex items-stretch gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 shadow-[0_2px_12px_rgba(0,0,0,0.04)] ring-1 ring-foreground/5">
+                <div class="flex min-w-0 flex-1 items-center gap-2.5">
+                  <span class="h-9 w-9 shrink-0 rounded-full border-2 border-border bg-card shadow-sm"></span>
+                  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted font-mono text-xs font-semibold text-muted-foreground">42</span>
+                  <span class="flex-1 truncate text-[15px] font-medium text-nori">Tartare di salmone</span>
+                  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted-foreground/50">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </span>
+                </div>
+                <span class="flex w-14 shrink-0 items-center justify-center self-stretch rounded-xl border-2 border-dashed border-border/50 bg-muted/20 text-muted-foreground/40" aria-hidden="true">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                </span>
+              </div>
+              <!-- Arrivato: spuntato, nome barrato, pronto al voto -->
+              <div class="flex items-stretch gap-2.5 rounded-[1rem] bg-card p-1.5 pl-2 opacity-80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] ring-1 ring-foreground/5">
+                <div class="flex min-w-0 flex-1 items-center gap-2.5">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-nori/20 bg-nori/5 text-nori">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  </span>
+                  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted/50 font-mono text-xs font-medium text-muted-foreground/70">7</span>
+                  <span class="flex-1 truncate text-[15px] font-medium text-muted-foreground line-through decoration-muted-foreground/30">Uramaki avocado</span>
+                  <span class="flex shrink-0 items-center rounded-full border border-border/30 bg-muted/40 p-1">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground opacity-60">
+                      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                    </span>
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground opacity-60">
+                      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+                    </span>
+                  </span>
+                </div>
+                <span class="flex w-14 shrink-0 items-center justify-center self-stretch rounded-xl border-2 border-dashed border-border/50 bg-muted/20 text-muted-foreground/40" aria-hidden="true">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beat 2 (immagine a sinistra su desktop) -->
+        <div class="grid items-center gap-10 sm:grid-cols-2 sm:gap-14">
+          <div class="sm:order-2">
+            <h2 class="font-display text-3xl font-bold tracking-tight text-balance text-nori sm:text-4xl">
+              Vai a colpo sicuro
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-pretty text-foreground/80">
+              Pollice su sui piatti approvati, pollice giù su quelli da evitare.
+              La prossima volta non dovrai ripassare tutto il menu del ristorante
+              per decidere cosa ordinare, l'app si ricorda i tuoi preferiti.
+            </p>
+          </div>
+          <div class="flex justify-center sm:order-1 sm:justify-start">
+            <div class="flex w-full max-w-xs items-stretch gap-3 rounded-[1.25rem] bg-card p-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.04)] ring-1 ring-foreground/5">
+              <div class="flex flex-1 flex-col justify-center gap-2.5 pl-1">
+                <div>
+                  <p class="text-[15px] font-semibold text-nori">Sashimi misto</p>
+                  <p class="mt-0.5 text-xs text-muted-foreground">Lo rifaresti?</p>
+                </div>
+                <!-- Voto: stesso controllo dell'app (pollice su attivo = riempito) -->
+                <span class="flex w-fit items-center rounded-full border border-border/30 bg-muted/40 p-1">
+                  <span class="flex h-8 w-8 items-center justify-center rounded-full bg-card text-salmon shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                  </span>
+                  <span class="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground opacity-60">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+                  </span>
+                </span>
+              </div>
+              <!-- Foto del piatto (placeholder: stessa cornice dell'app) -->
+              <span class="flex w-16 shrink-0 items-center justify-center self-stretch rounded-xl border-2 border-dashed border-border/50 bg-muted/20 text-muted-foreground/40" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beat 3 -->
+        <div class="grid items-center gap-10 sm:grid-cols-2 sm:gap-14">
+          <div>
+            <h2 class="font-display text-3xl font-bold tracking-tight text-balance text-nori sm:text-4xl">
+              Ogni ristorante il suo menù fotografico
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-pretty text-foreground/80">
+              Ogni ristorante ha il suo menù separato, e puoi anche aggiungere le foto dei piatti!
+              Ti risolve anche il problema di riconoscere il tuo piatto tra l'orda
+              di portate che arrivano al tavolo.
+            </p>
+          </div>
+          <div class="flex justify-center sm:justify-start">
+            <div class="w-full max-w-xs space-y-3">
+              <div class="rounded-[2rem] bg-card p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] ring-1 ring-foreground/5">
+                <p class="font-display text-xl font-bold text-nori">Sakura Sushi</p>
+                <p class="mt-1 flex items-center gap-1.5 text-xs font-semibold text-salmon">
+                  <span class="h-1.5 w-1.5 rounded-full bg-salmon animate-pulse"></span>
+                  2 piatti in attesa
+                </p>
+              </div>
+              <div class="rounded-[2rem] bg-card p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] ring-1 ring-foreground/5">
+                <p class="font-display text-xl font-bold text-nori">Hokkaido Ramen</p>
+                <p class="mt-1 text-xs text-muted-foreground">8 piatti nel menù</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────── Reassurance PWA ─────────────────── -->
+      <section class="mx-auto max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
+        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-center">
+          <span class="text-sm font-medium text-foreground/75">Senza account</span>
+          <span class="h-1 w-1 rounded-full bg-border" aria-hidden="true"></span>
+          <span class="text-sm font-medium text-foreground/75">Funziona offline</span>
+          <span class="h-1 w-1 rounded-full bg-border" aria-hidden="true"></span>
+          <span class="text-sm font-medium text-foreground/75">Si installa su iOS &amp; Android</span>
+          <span class="h-1 w-1 rounded-full bg-border" aria-hidden="true"></span>
+          <span class="text-sm font-medium text-foreground/75">Gratis e senza pubblicità</span>
+          <span class="h-1 w-1 rounded-full bg-border" aria-hidden="true"></span>
+          <span class="text-sm font-medium text-foreground/75">Open source</span>
+        </div>
+      </section>
+
+      <!-- ─────────────────── CTA finale: la sala buia ─────────────────── -->
+      <section class="band-izakaya">
+        <div class="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 sm:py-28">
+          <h2 class="font-display text-4xl font-bold tracking-[-0.02em] text-balance sm:text-5xl">
+            Pronto ad abbuffarti?
+          </h2>
+          <p class="mx-auto mt-5 max-w-md text-lg leading-relaxed text-pretty opacity-80">
+            Apri *maki, aggiungi il tuo ristorante e siediti. A tracciare i piatti
+            ci pensa lui.
+          </p>
+          <a
+            href="/app/"
+            class="group mt-9 inline-flex h-14 items-center gap-2 rounded-full bg-salmon px-8 text-base font-semibold text-white shadow-[0_12px_34px_-8px_rgba(240,120,104,0.6)] transition-all hover:bg-salmon/90 active:scale-[0.98]"
+          >
+            Apri *maki
+            <svg class="h-5 w-5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ───────────────────────── Footer ───────────────────────── -->
+    <footer class="mx-auto max-w-6xl px-5 py-12 sm:px-8">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <a href="/" class="font-display text-xl font-bold tracking-tight text-nori">
+          <span class="text-salmon">*</span>maki
+        </a>
+        <p class="text-sm text-muted-foreground">
+          Made in
+          <a href="https://mele.io" target="_blank" rel="noopener noreferrer" class="font-medium underline decoration-muted-foreground/30 transition-colors hover:text-salmon hover:decoration-salmon">Fab</a>
+          ·
+          <a href="https://letterbird.co/fabrizio" target="_blank" rel="noopener noreferrer" class="font-medium underline decoration-muted-foreground/30 transition-colors hover:text-salmon hover:decoration-salmon">Feedback</a>
+          ·
+          <a href="https://github.com/melefabrizio/star-maki-app" target="_blank" rel="noopener noreferrer" class="font-medium underline decoration-muted-foreground/30 transition-colors hover:text-salmon hover:decoration-salmon">GitHub</a>
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
-

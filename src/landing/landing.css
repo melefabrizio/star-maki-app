@@ -1,0 +1,186 @@
+/* Landing entry stylesheet — riusa gli stessi token, font e dark mode dell'app.
+   Tutto ciò che è specifico della landing vive qui; l'app non viene toccata. */
+@import "../index.css";
+
+:root {
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* verde nori profondo, costante in entrambi i temi: la "sala buia" dell'izakaya */
+  --izakaya: #1b211b;
+  --izakaya-ink: #ede9d8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Nessuna barra orizzontale: il glow dell'hero può bordare senza creare scroll */
+body {
+  overflow-x: clip;
+}
+
+/* ── Focus da tastiera: anello salmon on-brand ──
+   La landing è solo <a>; allinea il focus al design system dell'app (ring salmon).
+   L'outline segue la forma dell'elemento (pill o testo); niente border-radius qui,
+   altrimenti sovrascriverebbe il rounded-full delle CTA durante il focus. */
+a:focus-visible {
+  outline: 2px solid var(--color-salmon);
+  outline-offset: 3px;
+}
+
+/* Misura comoda per la prosa */
+.measure {
+  max-width: 34ch;
+}
+
+/* Alone caldo dietro l'hero — tenue, dietro al contenuto, non tocca il contrasto del testo */
+.hero-glow {
+  position: relative;
+  isolation: isolate;
+}
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: -20% 0 auto 0;
+  height: 80%;
+  background: radial-gradient(
+    55% 55% at 72% 18%,
+    color-mix(in oklab, var(--color-salmon) 24%, transparent),
+    transparent 70%
+  );
+  filter: blur(48px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── Cornice telefono (mockup ad alta fedeltà, theme-aware) ──
+   Il contenuto è renderizzato alle dimensioni logiche di un telefono vero
+   (390×844) e poi scalato giù con transform: così le proporzioni sono reali
+   e i nomi non si troncano più del dovuto. --scale guida tutta la cornice. */
+.phone {
+  --scale: 0.72;
+  position: relative;
+  width: max-content;
+  padding: 0.55rem;
+  border-radius: 2.9rem;
+  background: #2c372d; /* bezel nori, costante */
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.05),
+    0 34px 70px -26px rgba(20, 23, 20, 0.45);
+}
+@media (max-width: 480px) {
+  .phone {
+    --scale: 0.62;
+  }
+}
+.phone-screen {
+  position: relative;
+  width: calc(390px * var(--scale));
+  height: calc(844px * var(--scale));
+  border-radius: 2.45rem;
+  overflow: hidden;
+  background: var(--color-background);
+}
+.screen-inner {
+  width: 390px;
+  height: 844px;
+  transform: scale(var(--scale));
+  transform-origin: top left;
+}
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36%;
+  height: 1.05rem;
+  background: #2c372d;
+  border-radius: 0 0 0.9rem 0.9rem;
+  z-index: 5;
+}
+
+/* ── Hero asimmetrico: il telefono rompe la griglia ──
+   Mobile: sotto la copy, centrato, appena inclinato. Desktop: assoluto sulla
+   destra, ingrandito e inclinato, sborda oltre il bordo (clip via body). */
+.hero-phone {
+  --tilt: -2deg;
+}
+.hero-phone-tilt {
+  transform: rotate(var(--tilt));
+  transform-origin: center;
+}
+@media (min-width: 1024px) {
+  .hero-phone {
+    --tilt: -4deg;
+    position: absolute;
+    top: 1.5rem;
+    right: -2rem;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    z-index: 1;
+  }
+  .hero-phone .phone {
+    --scale: 0.82;
+  }
+  /* ombra-tavolo più decisa quando il telefono è grande e inclinato */
+  .hero-phone .phone {
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.05),
+      0 50px 90px -30px rgba(20, 23, 20, 0.5);
+  }
+}
+
+/* Band izakaya — volutamente scura in entrambi i temi */
+.band-izakaya {
+  background: var(--izakaya);
+  color: var(--izakaya-ink);
+}
+
+/* ── Motion: una sola coreografia in load, zero-JS ──
+   Il contenuto è visibile di default; l'animazione è solo un arricchimento
+   (niente opacity:0 senza motion → niente pagina vuota per crawler / reduced-motion). */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    animation: reveal 0.7s var(--ease-out-quint) both;
+    animation-delay: calc(var(--i, 0) * 85ms);
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .phone-rise {
+    opacity: 0;
+    animation: phoneRise 0.95s var(--ease-out-expo) both;
+    animation-delay: 0.18s;
+  }
+  @keyframes phoneRise {
+    from {
+      opacity: 0;
+      transform: translateY(42px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Rete di sicurezza reduced-motion: spegne anche il pulse "in arrivo" */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

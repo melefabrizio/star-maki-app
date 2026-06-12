@@ -12,6 +12,9 @@ export default defineConfig(({mode}) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
+        // La registrazione del SW avviene manualmente in src/main.tsx (solo entry app),
+        // così la landing su "/" resta una pagina statica zero-JS.
+        injectRegister: false,
         includeAssets: ['icon.png'],
         manifest: {
           name: '*maki',
@@ -23,7 +26,7 @@ export default defineConfig(({mode}) => {
           display: 'standalone',
           orientation: 'portrait',
           scope: '/',
-          start_url: '/',
+          start_url: '/app/',
           icons: [
             {src: 'icon-192.png', sizes: '192x192', type: 'image/png'},
             {src: 'icon-512.png', sizes: '512x512', type: 'image/png'},
@@ -46,6 +49,12 @@ export default defineConfig(({mode}) => {
     },
     build: {
       rollupOptions: {
+        input: {
+          // landing statica (zero-JS) su "/"
+          main: path.resolve(__dirname, 'index.html'),
+          // app PWA React su "/app/"
+          app: path.resolve(__dirname, 'app/index.html'),
+        },
         output: {
           manualChunks: {
             'vendor-react': ['react', 'react-dom'],
