@@ -6,7 +6,7 @@
 
 _si legge **"star maki"**_
 
-**Il tuo taccuino digitale per il sushi all you can eat.**
+**L'app per segnare i piatti al sushi all you can eat.**
 
 [![Live](https://img.shields.io/badge/live-maki.mele.io-2C372D?style=flat-square&logoColor=white)](https://maki.mele.io)
 [![PWA](https://img.shields.io/badge/PWA-installabile-F07868?style=flat-square)](https://maki.mele.io)
@@ -16,26 +16,28 @@ _si legge **"star maki"**_
 
 ---
 
-## Il problema
+## «E questo, chi l'ha ordinato?»
 
-Sei al ristorante di sushi all you can eat. Devi sfogliare il menu, ricordarti cosa hai ordinato e cosa ti è piaciuto l'ultima volta, e tenere traccia di cosa hai già ordinato e cosa deve ancora arrivare al tavolo.
+Sei al sushi all you can eat: il menù è infinito, i piatti arrivano alla rinfusa e a metà cena non ricordi più cosa hai ordinato, cosa deve ancora arrivare e cosa ti era piaciuto l'ultima volta.
 
-\*maki risolve esattamente questo.
+\*maki ti allevia l'ansia da menù: segni cosa ordini, spunti quando arriva al tavolo, e la volta dopo sai già da dove partire.
 
 ## Cosa fa
 
-- **Ristoranti multipli** — salva tutti i locali che frequenti, ognuno con la propria memoria
-- **Catalogo piatti** — ogni piatto ha un nome e opzionalmente il numero dal menu; rimane salvato tra una visita e l'altra
-- **Ordine in corso** — aggiungi i piatti che hai ordinato e segna quelli che arrivano al tavolo man mano
-- **Voti** — alla fine di ogni visita puoi segnare cosa riordinare e cosa evitare, così la volta dopo sai già da dove partire
+- **Un menù per ogni ristorante** — ogni locale tiene il suo catalogo di piatti (nome + numero dal menù, se vuoi) e la sua memoria, visita dopo visita
+- **Ordine al tavolo** — aggiungi i piatti che ordini e spunta quelli che arrivano, così non perdi il conto nella ressa di portate
+- **Foto dei piatti** — attacca una foto a ogni piatto per riconoscerlo al volo quando atterra in tavola
+- **Pollice su, pollice giù** — a fine cena vota cosa rifare e cosa evitare; la volta dopo i preferiti sono già in cima
+- **Tutto in locale** — niente account, niente cloud: i dati, foto comprese, vivono solo sul tuo telefono
+- **Installabile e offline** — è una PWA: funziona anche senza rete, con dark mode di serie
 
-## Dove si usa
+## Provala
 
-L'app è disponibile come **Progressive Web App** direttamente dal browser, senza installazione obbligatoria:
+\*maki è una **Progressive Web App**: si apre dal browser, senza installazione obbligatoria.
 
 ### [→ maki.mele.io](https://maki.mele.io)
 
-Su Android e iOS puoi installarla nella schermata home come un'app nativa tramite il menu del browser → *Aggiungi alla schermata Home*.
+Per averla a portata di mano puoi installarla in schermata Home: su iPhone da Safari → *Aggiungi alla schermata Home*, su Android da Chrome → *Installa app*. Niente store, niente download pesanti.
 
 ## Tech stack
 
@@ -46,6 +48,7 @@ Su Android e iOS puoi installarla nella schermata home come un'app nativa tramit
 | Stile | Tailwind CSS v4 |
 | Font | Fraunces (display) · DM Sans (corpo) |
 | Componenti | Base UI |
+| Dati | localStorage (stato) · IndexedDB via Dexie (foto) |
 | PWA | vite-plugin-pwa + Workbox |
 | Analytics | Umami |
 
