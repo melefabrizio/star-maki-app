@@ -91,6 +91,7 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
         ) : (
           state.restaurants.map((restaurant) => {
             const activeOrderCount = (state.activeOrders[restaurant.id] || []).filter(o => !o.arrived).length;
+            const dishCount = state.dishes.filter(d => d.restaurantId === restaurant.id).length;
 
             return (
               <Card
@@ -101,12 +102,16 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
                 <CardContent className="p-0 flex items-center justify-between">
                   <div className="flex-1 p-4 sm:p-5">
                     <h3 className="font-bold text-xl font-display text-nori">{restaurant.name}</h3>
-                    {activeOrderCount > 0 && (
+                    {activeOrderCount > 0 ? (
                       <p className="text-xs text-salmon font-semibold mt-1 flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-salmon animate-pulse" />
                         {activeOrderCount} {activeOrderCount === 1 ? 'piatto in attesa' : 'piatti in attesa'}
                       </p>
-                    )}
+                    ) : dishCount > 0 ? (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {dishCount} {dishCount === 1 ? 'piatto nel menù' : 'piatti nel menù'}
+                      </p>
+                    ) : null}
                   </div>
                   <div className="flex items-center pr-4">
 <div className="w-8 h-8 rounded-full flex items-center justify-center bg-muted/50 group-hover:bg-salmon/5 group-hover:text-salmon transition-colors">
