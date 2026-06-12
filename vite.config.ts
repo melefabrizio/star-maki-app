@@ -43,7 +43,7 @@ export default defineConfig(({mode}) => {
           background_color: '#2C372D',
           display: 'standalone',
           orientation: 'portrait',
-          scope: '/',
+          scope: '/app/',
           start_url: '/app/',
           icons: [
             {src: 'icon-192.png', sizes: '192x192', type: 'image/png'},
@@ -54,7 +54,7 @@ export default defineConfig(({mode}) => {
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           navigateFallback: '/app/index.html',
-          navigateFallbackAllowlist: [/^\/app\//],
+          navigateFallbackAllowlist: [/^\/app(\/|$)/],
           navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/],
         },
       }),
