@@ -37,8 +37,10 @@ const router = createBrowserRouter(
   {basename: '/app'},
 );
 
-// Service worker registrato solo dall'entry app, non dalla landing (che resta zero-JS).
-registerSW({immediate: true});
+// Service worker solo in deploy reale: in `vite preview` interferisce col back/overlay.
+if (!import.meta.env.VITE_PREVIEW) {
+  registerSW({immediate: true});
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "VITE_PREVIEW=true vite preview --port 3000",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
     "og": "node scripts/generate-og.mjs"

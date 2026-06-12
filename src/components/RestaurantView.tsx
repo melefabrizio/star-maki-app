@@ -43,9 +43,9 @@ export function RestaurantView() {
   const activeOrder = useMemo(() => (restaurantId ? state.activeOrders[restaurantId] || [] : []), [state.activeOrders, restaurantId]);
 
   const deleteRestaurantOverlay = useOverlay(OVERLAY.deleteRestaurant);
-  const editDishOverlay = useOverlayMatch("edit-dish");
-  const deleteDishOverlay = useOverlayMatch("delete-dish");
-  const lightboxOverlay = useOverlayMatch("lightbox");
+  const editDishOverlay = useOverlayMatch(OVERLAY.editDish);
+  const deleteDishOverlay = useOverlayMatch(OVERLAY.deleteDish);
+  const lightboxOverlay = useOverlayMatch(OVERLAY.lightbox);
 
   const editingDish = editDishOverlay.id
     ? dishes.find((d) => d.id === editDishOverlay.id) ?? null

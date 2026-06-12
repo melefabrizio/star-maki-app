@@ -1,8 +1,10 @@
 import { useCallback } from "react";
 import { useLocation, useNavigate, type Location } from "react-router-dom";
 
+const OVERLAY_PARAM = "overlay";
+const DISH_PARAM = "dish";
+
 export type MakiLocationState = {
-  overlay?: string;
   lightboxUrl?: string;
   lightboxEditable?: boolean;
 };
@@ -11,44 +13,56 @@ export const OVERLAY = {
   addRestaurant: "add-restaurant",
   addDish: "add-dish",
   deleteRestaurant: "delete-restaurant",
-  editDish: (id: string) => `edit-dish:${id}`,
-  deleteDish: (id: string) => `delete-dish:${id}`,
-  lightbox: (id: string) => `lightbox:${id}`,
+  editDish: "edit-dish",
+  deleteDish: "delete-dish",
+  lightbox: "lightbox",
 } as const;
+
+function overlayParams(location: Location) {
+  return new URLSearchParams(location.search);
+}
 
 export function getMakiState(location: Location): MakiLocationState {
   return (location.state as MakiLocationState | null) ?? {};
 }
 
-export function parseOverlayId(overlay: string | undefined, prefix: string): string | null {
-  if (!overlay?.startsWith(`${prefix}:`)) return null;
-  return overlay.slice(prefix.length + 1);
+function withOverlaySearch(
+  location: Location,
+  overlay: string,
+  dishId?: string,
+): string {
+  const params = overlayParams(location);
+  params.set(OVERLAY_PARAM, overlay);
+  if (dishId) params.set(DISH_PARAM, dishId);
+  else params.delete(DISH_PARAM);
+  const qs = params.toString();
+  return qs ? `?${qs}` : "";
 }
 
 /** Overlay con chiave fissa (es. add-dish, delete-restaurant). */
 export function useOverlay(overlayKey: string) {
   const navigate = useNavigate();
   const location = useLocation();
-  const isOpen = getMakiState(location).overlay === overlayKey;
+  const isOpen = overlayParams(location).get(OVERLAY_PARAM) === overlayKey;
 
   const open = useCallback(
     (extra?: Partial<MakiLocationState>) => {
       navigate(
-        { pathname: location.pathname, search: location.search },
         {
-          state: {
-            ...getMakiState(location),
-            overlay: overlayKey,
-            ...extra,
-          },
+          pathname: location.pathname,
+          search: withOverlaySearch(location, overlayKey),
+        },
+        {
+          replace: false,
+          state: { ...getMakiState(location), ...extra },
         },
       );
     },
-    [navigate, location.pathname, location.search, location.state, overlayKey],
+    [navigate, location, overlayKey],
   );
 
   const close = useCallback(() => {
-    if (getMakiState(location).overlay === overlayKey) {
+    if (overlayParams(location).get(OVERLAY_PARAM) === overlayKey) {
       navigate(-1);
     }
   }, [navigate, location, overlayKey]);
@@ -64,32 +78,33 @@ export function useOverlay(overlayKey: string) {
   return { isOpen, open, close, onOpenChange };
 }
 
-/** Overlay con id dinamico (es. edit-dish:abc, lightbox:abc). */
+/** Overlay con id piatto in query (?overlay=edit-dish&dish=abc). */
 export function useOverlayMatch(prefix: string) {
   const navigate = useNavigate();
   const location = useLocation();
-  const makiState = getMakiState(location);
-  const id = parseOverlayId(makiState.overlay, prefix);
+  const params = overlayParams(location);
+  const id = params.get(OVERLAY_PARAM) === prefix ? params.get(DISH_PARAM) : null;
   const isOpen = id !== null;
+  const makiState = getMakiState(location);
 
   const open = useCallback(
     (targetId: string, extra?: Partial<MakiLocationState>) => {
       navigate(
-        { pathname: location.pathname, search: location.search },
         {
-          state: {
-            ...getMakiState(location),
-            overlay: `${prefix}:${targetId}`,
-            ...extra,
-          },
+          pathname: location.pathname,
+          search: withOverlaySearch(location, prefix, targetId),
+        },
+        {
+          replace: false,
+          state: { ...getMakiState(location), ...extra },
         },
       );
     },
-    [navigate, location.pathname, location.search, location.state, prefix],
+    [navigate, location, prefix],
   );
 
   const close = useCallback(() => {
-    if (parseOverlayId(getMakiState(location).overlay, prefix)) {
+    if (overlayParams(location).get(OVERLAY_PARAM) === prefix) {
       navigate(-1);
     }
   }, [navigate, location, prefix]);
