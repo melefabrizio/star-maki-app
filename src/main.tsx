@@ -1,14 +1,51 @@
-import {StrictMode} from 'react';
+import {StrictMode, Suspense, lazy} from 'react';
 import {createRoot} from 'react-dom/client';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {registerSW} from 'virtual:pwa-register';
 import App from './App.tsx';
+import {Home} from './components/Home';
 import './index.css';
+
+const RestaurantView = lazy(() =>
+  import('./components/RestaurantView').then((m) => ({default: m.RestaurantView})),
+);
+
+const restaurantFallback = <div className="min-h-[100dvh] bg-background" />;
+
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      children: [
+        {index: true, element: <Home />},
+        {
+          path: 'r/:restaurantId',
+          element: (
+            <Suspense fallback={restaurantFallback}>
+              <RestaurantView tab="active" />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'r/:restaurantId/menu',
+          element: (
+            <Suspense fallback={restaurantFallback}>
+              <RestaurantView tab="history" />
+            </Suspense>
+          ),
+        },
+      ],
+    },
+  ],
+  {basename: '/app'},
+);
 
 // Service worker registrato solo dall'entry app, non dalla landing (che resta zero-JS).
 registerSW({immediate: true});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>,
 );

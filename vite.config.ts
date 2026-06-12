@@ -1,8 +1,17 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import type {Connect} from 'vite';
 import {defineConfig, loadEnv} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
+
+const appSpaFallback: Connect.NextHandleFunction = (req, _res, next) => {
+  const p = (req.url || '').split('?')[0];
+  if (/^\/app(\/|$)/.test(p) && !p.includes('.')) {
+    req.url = '/app/index.html';
+  }
+  next();
+};
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
@@ -10,6 +19,15 @@ export default defineConfig(({mode}) => {
     plugins: [
       react(),
       tailwindcss(),
+      {
+        name: 'app-spa-fallback',
+        configureServer(server) {
+          server.middlewares.use(appSpaFallback);
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use(appSpaFallback);
+        },
+      },
       VitePWA({
         registerType: 'autoUpdate',
         // La registrazione del SW avviene manualmente in src/main.tsx (solo entry app),
@@ -35,6 +53,8 @@ export default defineConfig(({mode}) => {
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+          navigateFallback: '/app/index.html',
+          navigateFallbackAllowlist: [/^\/app\//],
           navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/],
         },
       }),

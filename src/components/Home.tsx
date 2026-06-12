@@ -1,7 +1,8 @@
 import React from "react";
 import { Plus, ChevronRight, Utensils } from "lucide-react";
-import { useAppStore } from "../lib/store";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppOutletContext } from "../App";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -15,14 +16,9 @@ import {
   DialogClose,
 } from "./ui/dialog";
 
-interface HomeProps {
-  onSelectRestaurant: (id: string) => void;
-  store: ReturnType<typeof useAppStore>;
-  isDialogOpen: boolean;
-  setIsDialogOpen: (v: boolean) => void;
-}
-
-export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen }: HomeProps) {
+export function Home() {
+  const navigate = useNavigate();
+  const { store, isAddRestaurantOpen, setIsAddRestaurantOpen } = useAppOutletContext();
   const { state, addRestaurant } = store;
   const [newRestaurantName, setNewRestaurantName] = useState("");
 
@@ -31,7 +27,7 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
     if (newRestaurantName.trim()) {
       addRestaurant(newRestaurantName.trim());
       setNewRestaurantName("");
-      setIsDialogOpen(false);
+      setIsAddRestaurantOpen(false);
     }
   };
 
@@ -43,7 +39,7 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
           <p className="text-muted-foreground mt-1 text-[15px]">Organizza i tuoi ordini All You Can Eat</p>
         </div>
 
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isAddRestaurantOpen} onOpenChange={setIsAddRestaurantOpen}>
           <DialogTrigger render={<Button className="hidden sm:flex h-10 rounded-full gap-2 px-5 bg-salmon text-white font-semibold hover:bg-salmon/90 active:scale-[0.97] transition-all" />}>
             <Plus className="w-4 h-4" />
             Nuovo
@@ -84,7 +80,7 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
             <p className="text-muted-foreground mb-6 max-w-sm mx-auto text-[15px] leading-relaxed">
               Aggiungi un ristorante per iniziare a organizzare i tuoi piatti.
             </p>
-            <Button onClick={() => setIsDialogOpen(true)} variant="outline" className="rounded-full h-10 px-6 text-sm shadow-[0_2px_10px_rgba(0,0,0,0.03)] border-transparent bg-card hover:bg-card hover:text-salmon hover:shadow-md transition-all">
+            <Button onClick={() => setIsAddRestaurantOpen(true)} variant="outline" className="rounded-full h-10 px-6 text-sm shadow-[0_2px_10px_rgba(0,0,0,0.03)] border-transparent bg-card hover:bg-card hover:text-salmon hover:shadow-md transition-all">
               Aggiungi Ristorante
             </Button>
           </div>
@@ -97,7 +93,7 @@ export function Home({ onSelectRestaurant, store, isDialogOpen, setIsDialogOpen 
               <Card
                 key={restaurant.id}
                 className="group cursor-pointer border-transparent shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-all active:scale-[0.98] rounded-[2rem] overflow-hidden bg-card"
-                onClick={() => onSelectRestaurant(restaurant.id)}
+                onClick={() => navigate(`/r/${restaurant.id}`)}
               >
                 <CardContent className="p-0 flex items-center justify-between">
                   <div className="flex-1 p-4 sm:p-5">
