@@ -19,6 +19,15 @@ body {
   overflow-x: clip;
 }
 
+/* ── Focus da tastiera: anello salmon on-brand ──
+   La landing è solo <a>; allinea il focus al design system dell'app (ring salmon).
+   L'outline segue la forma dell'elemento (pill o testo); niente border-radius qui,
+   altrimenti sovrascriverebbe il rounded-full delle CTA durante il focus. */
+a:focus-visible {
+  outline: 2px solid var(--color-salmon);
+  outline-offset: 3px;
+}
+
 /* Misura comoda per la prosa */
 .measure {
   max-width: 34ch;
